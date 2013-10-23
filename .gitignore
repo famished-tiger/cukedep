@@ -1,0 +1,11 @@
+coverage
+doc
+gems
+Gemfile.lock
+*.txt
+*.bat
+*.html
+*.gem
+dependencies.dot
+feature2id.csv
+id2feature.csv
