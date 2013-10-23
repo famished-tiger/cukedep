@@ -1,9 +1,9 @@
 Cukedep
 ===========
-[![Build Status](https://travis-ci.org/famished-tiger/Cukedep.png?branch=master)](https://travis-ci.org/famished-tiger/Cukedep)
+[![Build Status](https://travis-ci.org/famished-tiger/cukedep.png?branch=master)](https://travis-ci.org/famished-tiger/cukedep)
 
 _Handle dependencies between feature file._  
-[Homepage](https://github.com/famished-tiger/Cukedep)
+[Homepage](https://github.com/famished-tiger/cukedep)
 
 __Cukedep__ is a command-line utility that helps to run feature files in the proper sequence.  
   
