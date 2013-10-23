@@ -1,6 +1,7 @@
 Cukedep
 ===========
 [![Build Status](https://travis-ci.org/famished-tiger/cukedep.png?branch=master)](https://travis-ci.org/famished-tiger/cukedep)
+[![Gem Version](https://badge.fury.io/rb/cukedep.png)](http://badge.fury.io/rb/cukedep)
 
 _Handle dependencies between feature file._  
 [Homepage](https://github.com/famished-tiger/cukedep)
