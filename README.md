@@ -5,7 +5,7 @@ Cukedep
 _Handle dependencies between feature file._  
 [Homepage](https://github.com/famished-tiger/cukedep)
 
-__Cukedep__ is a command-line utility that helps to run feature files in the proper sequence.  
+__Cukedep__ is a command-line utility that helps to run a set feature files in the proper sequence.  
   
 ### Highlights ###
 * Simple syntax to specify dependencies
