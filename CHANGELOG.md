@@ -1,3 +1,6 @@
+### 0.0.4 / 2013-10-24
+* [CHANGE] Files `Gemfile`, `cukedep.gemspec`. Updated dependencies towards other gems.
+
 ### 0.0.3 / 2013-10-24
 * [FIX] File `rake.erb`. Removal of pp method call.
 

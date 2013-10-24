@@ -30,8 +30,9 @@ EOSTRING
 	pkg.require_path = "lib"
 	
 	pkg.extra_rdoc_files = ['README.md']
-  pkg.add_runtime_dependency('cucumber',[">= 0.5.0"])
-  pkg.add_development_dependency('rake',[">= 0.8.0"])
+  pkg.add_runtime_dependency('cucumber',[">= 0.7.0"])
+  pkg.add_runtime_dependency('gherkin',[">= 1.0.24"])
+  pkg.add_runtime_dependency('rake',[">= 0.8.0"])
   pkg.add_development_dependency('rspec',[">= 2.11.0"])
   pkg.add_development_dependency('simplecov',[">= 0.5.0"])
   pkg.add_development_dependency('rubygems', [">= 2.0.0"])
