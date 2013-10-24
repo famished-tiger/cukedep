@@ -24,7 +24,7 @@ $[sudo] gem install cukedep
 To check the installation, open a shell/command window
 and type the command-line:
 ```bash  
-$[sudo] cukedep --version
+cukedep --version
 ```
 
 You should see the version of cukedep gem.
@@ -35,21 +35,21 @@ To get a first taste of how cukedep works, install it first.
 Then go to the root dir of the cukedep gem, then open a shell/command window
 and type the command-line:
 ```bash  
-$[sudo] rake
+rake
 ```
 
 You will see tests running and Cucumber executing a number of feature files.
 
-To learn more what's happening, go to the ```pec/sample_features``` dir
+To learn more what's happening, go to the ```rspec/sample_features``` dir
 You will notice a number of feature files for a sample application.
 Stay in that folder and type the following command-line:
 ```bash  
-$[sudo] cukedep --project ../../../sample --dry-run
+cukedep --project ../../../sample --dry-run
 ```
 
 You instructed cukedep to do the following:
 * Read (parse) all the feature files in the current dir.
-* Resolve the dependencies between the feature files (based on specific Gherkin @tags).
+* Resolve the dependencies between the feature files (based on Gherkin @tags with a special format).
 * Generate a number of dependency reports and drawing.
 * Generate a rake file that will execute the feature files in the proper sequence for
 the project located at the relative path ```../../../sample```
@@ -57,8 +57,11 @@ the project located at the relative path ```../../../sample```
 To generate all the above files and run the feature files with Cucumber,
 then retry the command line without the --dry-run option:
 ```bash  
-$[sudo] cukedep --project ../../../sample --dry-run
+cukedep --project ../../../sample --dry-run
 ```
+
+### How can I define ###
+
 
 Copyright
 ---------

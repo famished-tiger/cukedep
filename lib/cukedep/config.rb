@@ -19,9 +19,14 @@ Config = Struct.new(
 class Config
   # Factory method. Build a config object with default settings.
   def self.default()
-    Config.new(nil, FileMetaData.new('feature2id.csv'), 
-      FileMetaData.new('feature2id.csv'), FileMetaData.new('dependencies.dot'),
-      'cukedep.rake', [])
+    Config.new(
+      nil, 
+      FileMetaData.new('feature2id.csv'), 
+      FileMetaData.new('feature2id.csv'), 
+      FileMetaData.new('dependencies.dot'),
+      'cukedep.rake',
+      []
+    )
   end
 
 end # class

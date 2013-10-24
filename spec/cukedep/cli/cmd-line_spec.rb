@@ -37,7 +37,7 @@ describe CLI::CmdLine do
 
     it 'should accept the dry-run option' do
       expect { subject.parse!(['--dry-run']) }.not_to raise_error
-      expect(subject.options).to eq({ :"dry-run" => true })
+      expect(subject.options).to eq({ :dryrun => true })
     end
 
     it 'should accept the setup option' do

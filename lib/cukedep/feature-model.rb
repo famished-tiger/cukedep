@@ -16,7 +16,9 @@ class FeatureModel
 
 FeatureDependencies = Struct.new(:dependee, :dependents)
 
-
+# Helper class used internally by FeatureModel class.
+# Purpose: to try to create a valid dependency graph and perform a
+# topological sort of the nodes.
 class DepGraph
   include TSort # Mix-in module for topological sorting
   
@@ -61,7 +63,7 @@ end # class
   # Retrieve the feature file matching the given feature identifiers
   # theIds one or more Strings, each being one feature identifier
   def select_by_ids(*theIds)
-    features_by_ids = id2features()
+    features_by_ids = id2features
     selection = theIds.each_with_object([]) do |an_id, sub_result|
       found_feature = features_by_ids[an_id]
       if found_feature.nil?
@@ -82,7 +84,7 @@ end # class
   def dependency_links()
     if @dependencies.nil?
       # Build the mapping: feature identifier => feature
-      features_by_id = id2features()
+      features_by_id = id2features
       
       # Resolve the dependency tags
       resolve_dependencies(features_by_id)
@@ -94,9 +96,9 @@ end # class
 
   # Sort the feature files by dependency order.
   def sort_features_by_dep()
-    dep_links = dependency_links()
+    dep_links = dependency_links
     graph = DepGraph.new(dep_links)
-    sorted_deps = graph.tsort()
+    sorted_deps = graph.tsort
 
     all_sorted = sorted_deps.map(&:dependee)
     @sorted_features = all_sorted.reject { |f| f.feature.anonymous? }
@@ -142,7 +144,7 @@ end # class
   
   def emit_heading(anIO)
     dir = File.dirname(File.absolute_path(feature_files[0].filepath))
-    heading =<<-EOS
+    heading = <<-EOS
 // Graph of dependencies of feature files in directory:
 // '#{dir}'
 // This file uses the DOT syntax, a free utility from the Graphviz toolset.
@@ -166,7 +168,9 @@ EOS
   subgraph island {
     node [shape = box, style=filled, color=lightgray];
 EOS
-    feature_files.each_with_index { |ff, i| draw_node(anIO, ff, i) if ff.feature.anonymous? }
+    feature_files.each_with_index do |ff, i|
+      draw_node(anIO, ff, i) if ff.feature.anonymous?
+    end
     
     anIO.puts <<-EOS
     label = "Isolated features";
@@ -175,26 +179,33 @@ EOS
   subgraph dependencies {
     node [shape = box, fillcolor = none];
 EOS
-    feature_files.each_with_index { |ff, i| draw_node(anIO, ff, i) unless ff.feature.anonymous? }
+    feature_files.each_with_index do |ff, i| 
+      draw_node(anIO, ff, i) unless ff.feature.anonymous?
+    end
     anIO.puts <<-EOS
     label = "Dependencies";
   }
 
   // The edges represent dependencies
 EOS
-    dependencies.each {|a_dep| draw_edge(anIO, a_dep) }
+    dependencies.each { |a_dep| draw_edge(anIO, a_dep) }
   end
   
   # Output the closing part of the graph drawing
   def emit_trailing(anIO)
-    anIO.puts "} // End of graph" 
+    anIO.puts '} // End of graph'
   end
   
   # Draw a refinement node in DOT format
   def draw_node(anIO, aFeatureFile, anIndex)
     basename = File.basename(aFeatureFile.filepath, '.feature')
-    identifier_suffix = aFeatureFile.feature.anonymous? ? '' : " -- #{aFeatureFile.feature.identifier}"
-    anIO.puts %Q|    node_#{anIndex} [label = "#{basename}#{identifier_suffix}"];|
+    its_feature = aFeatureFile.feature
+    if its_feature.anonymous?
+      id_suffix = ''
+    else
+      id_suffix = " -- #{its_feature.identifier}"
+    end
+    anIO.puts %Q|    node_#{anIndex} [label = "#{basename}#{id_suffix}"];|
   end
   
   # Draw an edge between feature files having dependencies.
@@ -212,18 +223,18 @@ EOS
 
   def generate_rake_tasks(rakefile, theProjDir)
     puts "  #{rakefile}"
-    template_filepath = Pathname.new(File.dirname(__FILE__)).parent.parent + './templates/rake.erb'
-    template_source = File.read(template_filepath)
+    grandparent_path = Pathname.new(File.dirname(__FILE__)).parent.parent
+    template_source = File.read(grandparent_path + './templates/rake.erb')
 
     # Create one template engine instance     
     engine = ERB.new(template_source)
 
-    source_dir = File.absolute_path(Dir.getwd())
+    source_dir = File.absolute_path(Dir.getwd)
     proj_dir = File.absolute_path(theProjDir)
-    anonymous = anonymous_features.map {|ff| ff.basename}
+    anonymous = anonymous_features.map { |ff| ff.basename }
     feature_ids = feature_files.map { |ff| ff.feature.identifier }
     feature_ids.compact!
-    deps = dependencies.reject {|dep| dep.dependee.feature.anonymous?}
+    deps = dependencies.reject { |dep| dep.dependee.feature.anonymous? }
 
     # Generate the text representation with given context
     file_source = engine.result(binding)
@@ -266,8 +277,9 @@ EOS
       # Complain when dependency tag refers to an unknown feature
       dependents = dep_tags.map do |a_tag|
         unless aMapping.include?(a_tag)
-          msg = "Feature with identifier '#{its_id}' depends on unknown feature '#{a_tag}'"
-          fail(StandardError, msg)
+          msg_p1 = "Feature with identifier '#{its_id}'"
+          msg_p2 = " depends on unknown feature '#{a_tag}'"
+          fail(StandardError, msg_p1 = msg_p2)
         end
         aMapping[a_tag]
       end

@@ -35,9 +35,10 @@ The command-line options are:
 EOS
 
       # No argument.  Check
-      dry_txt = 'Check the feature file dependencies without running the feature files.'
-      opts.on(nil, '--dry-run', dry_txt) do
-        options[:"dry-run"] = true
+      dry_txt1 = 'Check the feature file dependencies'
+      dry_txt2 = ' without running the feature files.'
+      opts.on(nil, '--dry-run', dry_txt1 + dry_txt2) do
+        options[:dryrun] = true
       end
 
       # No argument.  Create .cukedep.yml file
@@ -47,8 +48,9 @@ EOS
       end
 
       # Mandatory argument
-      msg = 'Run the Cucumber project at given path with features from current dir.'
-      opts.on('--project PROJ_PATH', msg) do |project_path|
+      msg_p1 = 'Run the Cucumber project at given path '
+      msg_p2 = 'with features from current dir.'
+      opts.on('--project PROJ_PATH', msg_p1 + msg_p2) do |project_path|
         options[:project] = validated_project(project_path)
       end
 
@@ -77,7 +79,7 @@ public
         err_msg << "No argument provided with command line option: #{arg}\n"
       end
       err_msg << 'To see the command-line syntax, do:\ncukedep --help'
-      fail(StandardError, err_msg)
+      raise(StandardError, err_msg)
     end
 
     # Some options stop the application
@@ -94,11 +96,12 @@ private
     
     # If current dir is /features and project dir is parent of it
     # then we have an error
-    current_path = Pathname.getwd()
+    current_path = Pathname.getwd
     if current_path.to_s =~ /features$/
       if current_path.parent == Pathname.new(theProjectPath)
-        msg = "Original feature file may not be in 'features' subdir of project dir."
-        fail StandardError, msg
+        msg_prefix = "Don't place original feature file in 'features'"
+        msg_suffix = ' subdir of project dir.'
+        fail StandardError, msg_prefix + msg_suffix
       end
     end
     
