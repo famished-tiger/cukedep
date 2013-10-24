@@ -79,7 +79,6 @@ def clean_project_dir(fname_patterns)
     Dir.chdir(CUKE_PROJECT + '/features')
     fname_patterns.each do |patt|
       filenames = Dir.glob(patt)
-      pp filenames
       filenames.each { |fn| FileUtils.remove_file(fn) }
     end
   ensure  #Always restore previous working dir.
