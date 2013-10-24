@@ -47,7 +47,7 @@ Stay in that folder and type the following command-line:
 cukedep --project ../../../sample --dry-run
 ```
 
-You instructed cukedep to do the following:
+You told cukedep to do the following:
 * Read (parse) all the feature files in the current dir.
 * Resolve the dependencies between the feature files (based on Gherkin @tags with a special format).
 * Generate a number of dependency reports and drawing.
@@ -57,10 +57,40 @@ the project located at the relative path ```../../../sample```
 To generate all the above files and run the feature files with Cucumber,
 then retry the command line without the --dry-run option:
 ```bash  
-cukedep --project ../../../sample --dry-run
+cukedep --project ../../../sample
 ```
 
-### How can I define ###
+Now you see cukedep redoing the same actions as previously but in addition
+it:
+* Copies a feature file from the current directive to the Cucumber-based project
+* Let Cucumber execute the feature file
+* Repeat the two above steps in a sequence that meet the dependencies specified in the feature files.
+
+
+### How can I define dependencies? ###
+To define dependencies between feature files, use Gherkin specific tags.
+Suppose that feature `foo` depends on feature `bar`.
+Then the feature file `foo` may begin as follows:
+
+```cucumber
+# The next line names this feature 'foo' and make dependent on 'bar'
+@feature:foo @depends_on:bar
+Feature: Check-in
+  As a video rental employee
+  I want to register return of rented videos
+  So that other members can them too  
+```
+
+While feature `bar` may start like this:
+```cucumber
+# The next line names this feature 'bar'
+@feature:bar
+Feature: Renting videos
+  As a video rental employee
+  I want to register rentals made by a member 
+  So I can run my business
+```
+
 
 
 Copyright

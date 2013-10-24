@@ -1,3 +1,6 @@
+### 0.0.5 / 2013-10-24
+* [CHANGE] Files `README.md` Added section on how to specify dependencies.
+
 ### 0.0.4 / 2013-10-24
 * [CHANGE] Files `Gemfile`, `cukedep.gemspec`. Updated dependencies towards other gems.
 
