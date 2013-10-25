@@ -1,8 +1,11 @@
+### 0.0.7 / 2013-10-25
+* [CHANGE] Method `Application#generate_files` now uses the filenames as specified in the `cukedep.yml` file.
+
 ### 0.0.6 / 2013-10-25
-* [CHANGE] Files `README.md` Added rationale text and recap paragraph.
+* [CHANGE] File `README.md` Added rationale text and recap paragraph.
 
 ### 0.0.5 / 2013-10-24
-* [CHANGE] Files `README.md` Added section on how to specify dependencies.
+* [CHANGE] File `README.md` Added section on how to specify dependencies.
 
 ### 0.0.4 / 2013-10-24
 * [CHANGE] Files `Gemfile`, `cukedep.gemspec`. Updated dependencies towards other gems.

@@ -37,7 +37,8 @@ public
     feature_files = parse_features
     
     model = FeatureModel.new(feature_files)
-    generate_files(model)
+    generate_files(model, config)
+
     unless options[:dryrun]
       rake_cmd = 'rake -f cukedep.rake'
       system(rake_cmd)
@@ -96,7 +97,7 @@ protected
   end
 
 
-  def generate_files(aModel)
+  def generate_files(aModel, aConfig)
     # Sort the feature files by dependency order.
     aModel.sort_features_by_dep
     
@@ -105,9 +106,9 @@ protected
     # Generate CSV files detailing the feature to identifier mapping
     # and vise versa
     # TODO: replace hardcoded names by value from config
-    aModel.mapping_reports('feature2id.csv', 'id2feature.csv', true)
-    aModel.draw_dependency_graph('dependencies.dot', true)
-    aModel.generate_rake_tasks('cukedep.rake', proj_dir)
+    aModel.mapping_reports(aConfig.feature2id.name, aConfig.id2feature.name, true)
+    aModel.draw_dependency_graph(aConfig.graph_file.name, true)
+    aModel.generate_rake_tasks(aConfig.rake_file, proj_dir)
   end
 end # class
 
