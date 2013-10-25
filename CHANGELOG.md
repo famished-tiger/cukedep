@@ -1,3 +1,6 @@
+### 0.0.6 / 2013-10-25
+* [CHANGE] Files `README.md` Added rationale text and recap paragraph.
+
 ### 0.0.5 / 2013-10-24
 * [CHANGE] Files `README.md` Added section on how to specify dependencies.
 
