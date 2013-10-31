@@ -1,6 +1,6 @@
 # File: file-parsing.rb
 
-require 'gherkin/parser/parser'
+require_relative '../../lib/cukedep/gherkin-facade'
 
 module Cukedep # This module is used as a namespace
 
@@ -19,18 +19,21 @@ module Cukedep # This module is used as a namespace
     # Helper method. It parses sample feature files and
     # notifies the provided listener of its progress.
     def parse_for(aListener)
-      # Determine the folder where the sample files reside
-      my_dir = File.dirname(__FILE__)
-      sample_dir = File.expand_path(my_dir + '/sample_features')
-      
-      # Create a Gherkin parser
-      parser = Gherkin::Parser::Parser.new(aListener)
-      
-      # Let it parse the requested files
-      SampleFileNames.each do |sample|
-        path = sample_dir + '/' + sample
-        File::open(path, 'r') { |f| parser.parse(f.read, path, 0) }
+      orig_dir = Dir.getwd()
+      begin
+        # Determine the folder where the sample files reside
+        my_dir = File.dirname(__FILE__)
+        sample_dir = File.expand_path(my_dir + '/sample_features')
+        Dir.chdir(sample_dir)
+        
+        # Parse the specified feature files in work directory
+        is_verbose = false
+        gherkin_facade = GherkinFacade.new(is_verbose, 'UTF-8')
+        gherkin_facade.parse_features(aListener, SampleFileNames)
+      ensure
+        Dir.chdir(orig_dir)
       end
+      
     end
   
   end # module

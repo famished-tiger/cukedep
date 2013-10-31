@@ -1,3 +1,9 @@
+### 0.0.8 / 2013-10-31
+* [Fix] After adding a non-ASCII in a sample feature, Gherkin raised an encoding incompatibility error. Fixed
+* [CHANGE] Added a new field 'feature_encoding' in Config object to store the encoding of feature files (default = 'UTF-8')
+* [NEW] Class `GherkinFacade`
+* [CHANGE] `Application#parse_features` method
+
 ### 0.0.7 / 2013-10-25
 * [CHANGE] Method `Application#generate_files` now uses the filenames as specified in the `cukedep.yml` file.
 

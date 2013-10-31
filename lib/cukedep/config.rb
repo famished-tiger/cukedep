@@ -5,6 +5,7 @@ module Cukedep # Module used as a namespace
 FileMetaData = Struct.new(:name)
 
 Config = Struct.new(
+  :feature_encoding, # The encoding of feature files
   :proj_dir,    # The directory of the cucumber project
   :feature2id,  # Meta-data about the feature => feature id report
   :id2feature,  # Meta-data about the feature id => feature report
@@ -20,6 +21,7 @@ class Config
   # Factory method. Build a config object with default settings.
   def self.default()
     Config.new(
+      'UTF-8',
       nil, 
       FileMetaData.new('feature2id.csv'), 
       FileMetaData.new('feature2id.csv'), 

@@ -1,11 +1,11 @@
 # File: application.rb
 
 require 'yaml'
-require 'gherkin/parser/parser'
 
 require_relative 'cli/cmd-line'
 require_relative 'config'
 require_relative 'gherkin-listener'
+require_relative 'gherkin-facade'
 require_relative 'feature-model'
 
 module Cukedep # Module used as a namespace
@@ -34,7 +34,7 @@ public
       @proj_dir = config.proj_dir
     end
 
-    feature_files = parse_features
+    feature_files = parse_features(config.feature_encoding)
     
     model = FeatureModel.new(feature_files)
     generate_files(model, config)
@@ -75,23 +75,15 @@ protected
     end
   end
 
-  # Parse the feature files
-  def parse_features()
+  # Parse the feature files (with the specified external encoding)
+  def parse_features(external_encoding)
     # Create a Gherkin listener
     listener = Cukedep::GherkinListener.new
-
-    # Create a Gherkin parser
-    parser = Gherkin::Parser::Parser.new(listener)
-
-    # List all the .feature files
-    filenames = Dir.glob('*.feature')
-    puts "\nParsing:"
     
-    # Parse them
-    filenames.each do |fname|
-      puts "  #{fname}"
-      File.open(fname, 'r') { |f| parser.parse(f.read, fname, 0) }
-    end
+    # Parse the feature files in work directory
+    is_verbose = true
+    gherkin_facade = GherkinFacade.new(is_verbose, external_encoding)
+    gherkin_facade.parse_features(listener, ['*.feature'])
 
     return listener.feature_files
   end
