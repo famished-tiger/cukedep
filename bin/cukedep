@@ -10,6 +10,6 @@ require 'cukedep' # Load the Cukedep::Application class
 
 # The application's entry point
 app = Cukedep::Application.new
-app.start!(ARGV)
+app.run!(ARGV)
 
 # End of file

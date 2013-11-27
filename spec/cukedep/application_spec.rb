@@ -29,11 +29,11 @@ describe Application do
       File.delete(Cukedep::YMLFilename) if File.exist?(Cukedep::YMLFilename)
       
       # --setup option creates the config file then stops the application
-      expect { subject.start!(['--setup'])}.to raise_error(SystemExit)
+      expect { subject.run!(['--setup'])}.to raise_error(SystemExit)
       
       # Check that the config file was effectively created.
       expect { File.exist?(Cukedep::YMLFilename) }.to be_true
-      created_config = subject.send(:load_cfg)
+      created_config = Config.load_cfg(Cukedep::YMLFilename)
       expect(created_config).to eq(Config.default)
       
       # Re-run again with --setup option.
@@ -44,7 +44,7 @@ describe Application do
       $> = ostream
       old_stdin = $stdin
       $stdin = StringIO.new("n\n", 'r')
-      expect { subject.start!(['--setup'])}.to raise_error(SystemExit)
+      expect { subject.run!(['--setup'])}.to raise_error(SystemExit)
       $> = old_stdout
       $sdtin = old_stdin
     end
@@ -55,11 +55,11 @@ describe Application do
       expect(File.exist?(Cukedep::YMLFilename)).to be_false
       
       # Create default config
-      expect { subject.start!(['--setup'])}.to raise_error(SystemExit)
+      expect { subject.run!(['--setup'])}.to raise_error(SystemExit)
         
       err = StandardError
-      err_msg = "No project dir specified via 'Cukedep::YMLFilename' nor via --project option."
-      expect {subject.start!([])}.to raise_error(err, err_msg)
+      err_msg = "No project dir specified in '.cukedep.yml' nor via --project option."
+      expect {subject.run!([])}.to raise_error(err, err_msg)
     end
     
     it 'should parse the feature files' do
@@ -68,9 +68,9 @@ describe Application do
         file_dir = File.dirname(__FILE__)
         Dir.chdir(file_dir + '/sample_features')
         unless File.exist?(Cukedep::YMLFilename)
-          expect { subject.start!(['--setup'])}.to raise_error(SystemExit)
+          expect { subject.run!(['--setup'])}.to raise_error(SystemExit)
         end
-        subject.start!(['--project', '../../../sample'])
+        subject.run!(['--project', '../../../sample'])
       ensure
         Dir.chdir(curr_dir)
       end

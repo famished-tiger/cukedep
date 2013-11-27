@@ -12,6 +12,7 @@ RSpec.configure do |config|
     # Disable the `should` syntax...
     c.syntax = :expect
   end
+  config.full_backtrace = true
 end
 
 

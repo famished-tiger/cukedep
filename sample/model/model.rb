@@ -136,10 +136,10 @@ class RentalStore
   end
   
   def close_rental(aRental)
-    rentals.delete(aRental)
-    save_rentals
     returned_video = search_video(aRental.video)
     returned_video.state = :available
+    rentals.delete(aRental)
+    save_rentals
   end
 
   private

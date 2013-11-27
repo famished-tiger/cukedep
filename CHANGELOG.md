@@ -1,3 +1,19 @@
+### 0.1.00 / 2013-11-27
+* [FEATURE] Customized file actions (save, delete, copy) associated with invocation event
+* [FEATURE] Hooks for further invocation event customization.
+* [NEW] `Cukedep::CukeRunner` class. Responsibilities: -Invokes Cucumber, handles the invocation events.
+* [NEW] `Cukedep::Customization` class. Responsibilities: -Loads custom hook code blocks (in `cukedep_hooks.rb`)
+* [NEW] `Cukedep::FileAction` class hierarchy. Responsibilities: specify the actions to perform before/after Cucumber invocation(s).
+* [NEW] `Cukedep::HookDSL` module. Used to define a DSL (Domain Specific Language)
+* [NEW] `Cukedep::Sandbox`. Responsibilities: Gives the context in which hook code block are executed.
+* [NEW] `Cukedep::Config` class: new methods: `load_cfg`, `write`, `file_action_attrs`
+* [CHANGE] Method `Application#run!`: Using new interface of `Cukedep::Config` class.
+
+
+### 0.0.9 / 2013-11-04 [unreleased]
+* [CHANGE] For uniformity reasons, method `Application#start!` renamed to `Application#run!`
+* [FIX] Method `Application#run!`: incorrect string interpolation in error message.
+
 ### 0.0.8 / 2013-10-31
 * [Fix] After adding a non-ASCII in a sample feature, Gherkin raised an encoding incompatibility error. Fixed
 * [CHANGE] Added a new field 'feature_encoding' in Config object to store the encoding of feature files (default = 'UTF-8')

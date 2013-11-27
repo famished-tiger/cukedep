@@ -16,8 +16,8 @@ class FeatureRep
   attr_reader(:tags)
   
   # The identifier of the feature. 
-  # It comes from a tag with the following syntax '@feature_' + identifier.
-  # Note that the @feature_ prefix is removed.
+  # It comes from a tag with the following syntax '@feature:' + identifier.
+  # Note that the @feature: prefix is removed.
   attr_reader(:identifier)
 
 

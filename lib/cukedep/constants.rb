@@ -3,7 +3,7 @@
 
 module Cukedep # Module used as a namespace
   # The version number of the gem.
-  Version = '0.0.8'
+  Version = '0.1.00'
 
   # Brief description of the gem.
   Description = 'Manage dependencies between Cucumber feature files'
@@ -23,6 +23,10 @@ module Cukedep # Module used as a namespace
 
     # The file name for the user's settings
     YMLFilename = '.cukedep.yml'
+    
+    # The file name for the custom block codes associated
+    # with before/after events.
+    HookFilename = 'cukedep_hooks.rb'
   end
 end # module
 
