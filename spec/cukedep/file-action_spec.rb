@@ -74,8 +74,12 @@ describe CopyAction do
 
   before(:all) do
     # Clean stuffed dirs
-    target_dir = File.dirname(__FILE__) + '/sample_features/saved_files'
-    clean_dir(target_dir)
+    target_dir = File.join(File.dirname(__FILE__), '/sample_features/saved_files')
+    unless Dir.exist?(target_dir)
+      Dir.mkdir(target_dir)
+    else
+      clean_dir(target_dir)
+    end
   end
 
 

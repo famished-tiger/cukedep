@@ -1,3 +1,6 @@
+### 0.1.01 / 2013-11-27
+* [FIX] Failing test in `file-action_spec.rb` file. Cause: Commit to GitHub doesn't copy empty dir!. Added directory creation code.
+
 ### 0.1.00 / 2013-11-27
 * [FEATURE] Customized file actions (save, delete, copy) associated with invocation event
 * [FEATURE] Hooks for further invocation event customization.

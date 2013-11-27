@@ -1,7 +1,0 @@
----
-- !ruby/struct:Sample::User
-  credential: it's me
-- !ruby/struct:Sample::User
-  credential: himself
-- !ruby/struct:Sample::User
-  credential: nemo
