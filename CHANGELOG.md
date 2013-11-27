@@ -1,3 +1,6 @@
+### 0.1.02 / 2013-11-27
+* [FIX] Failing test again  in `file-action_spec.rb` file. Cause: Commit to GitHub doesn't copy empty dir!. Added directory creation code.
+
 ### 0.1.01 / 2013-11-27
 * [FIX] Failing test in `file-action_spec.rb` file. Cause: Commit to GitHub doesn't copy empty dir!. Added directory creation code.
 

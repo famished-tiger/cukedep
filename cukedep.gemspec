@@ -24,7 +24,7 @@ Enjoy using Cucumber with macros...
 EOSTRING
   pkg.rdoc_options << '--exclude="sample|spec"'  
 	file_list = Dir['.rspec', '.ruby-gemset', '.ruby-version', '.simplecov', '.travis.yml', '.yardopts', 'cucumber.yml', 'Gemfile', 'Rakefile',  'CHANGELOG.md', 'LICENSE.txt', 'README.md', 
-    'bin/**', 'lib/*.*', 'lib/**/*.rb', 'sample/**/*.*', 'spec/**/*.rb', 'spec/cukedep/sample_features/**', 'templates/*.erb'
+    'bin/**', 'lib/*.*', 'lib/**/*.rb', 'sample/**/*.*', 'spec/**/*.rb', 'spec/cukedep/sample_features/**', 'spec/cukedep/sample_features/files_to_copy/**',  'templates/*.erb'
   ]
 	pkg.files = file_list
 	pkg.require_path = "lib"
