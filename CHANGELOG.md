@@ -1,5 +1,9 @@
+### 0.1.03 / 2013-11-28
+* [FIX] Failing execution of generated Rake file in Travis CI. Cause: Rake template always referenced class in gem while it should reference development code while self-testing.
+* [FIX] Added three missing test data files in the committed version.
+
 ### 0.1.02 / 2013-11-27
-* [FIX] Failing test again  in `file-action_spec.rb` file. Cause: Commit to GitHub doesn't copy empty dir!. Added directory creation code.
+* [FIX] Failing test again in `file-action_spec.rb` file. Cause: Commit to GitHub doesn't copy empty dir!. Added directory creation code.
 
 ### 0.1.01 / 2013-11-27
 * [FIX] Failing test in `file-action_spec.rb` file. Cause: Commit to GitHub doesn't copy empty dir!. Added directory creation code.
