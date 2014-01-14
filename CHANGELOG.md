@@ -1,3 +1,7 @@
+### 0.1.04 / 2013-01-14
+* [CHANGE] File `.travis.yml`. Addition of MRI Ruby 2.1.0 to Travis CI.
+* [CHANGE] File `LICENSE.txt`. Addition of 2014 in copyright year.
+
 ### 0.1.03 / 2013-11-28
 * [FIX] Failing execution of generated Rake file in Travis CI. Cause: Rake template always referenced class in gem while it should reference development code while self-testing.
 * [FIX] Added three missing test data files in the committed version.
