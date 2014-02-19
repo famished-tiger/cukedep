@@ -27,7 +27,7 @@ module HookDSL
   def after_cuke(aScope, &aBlock)
     kind = :after
     scope = validated_scope(kind, aScope)
-    register_hook(kind, aScope, aBlock) if block_given?
+    register_hook(kind, scope, aBlock) if block_given?
   end
 
 =begin
@@ -46,18 +46,19 @@ module HookDSL
 =end
 
   private
+  
   def register_hook(aKind, aScope, aBlock)
     scope = validated_scope(aKind, aScope)
 
     ivar = "@#{aKind}_hooks".to_sym
-    self.instance_variable_set(ivar, {}) if self.instance_variable_get(ivar).nil?
-    self.instance_variable_get(ivar)[scope] = aBlock
+    instance_variable_set(ivar, {}) if instance_variable_get(ivar).nil?
+    instance_variable_get(ivar)[scope] = aBlock
   end
   
   def validated_scope(aKind, aScope)
     unless ValidHookScopes.include?(aScope)
       msg = "Unknown scope '#{aScope}' for #{aKind}_cuke hook."
-      raise StandardError, msg
+      fail StandardError, msg
     end
     
     return aScope
@@ -71,6 +72,7 @@ module HookDSL
     end
     
     handler = hooks.nil? ? nil : hooks.fetch(aScope)
+    return handler
   end
 
 end # module

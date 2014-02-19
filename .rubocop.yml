@@ -15,7 +15,8 @@ AsciiComments:
   Enabled: false
 
 CaseIndentation:
-  Enabled: false
+  IndentWhenRelativeTo: end
+  IndentOneStep: true
 
 ClassLength:
   Max: 200
@@ -32,6 +33,10 @@ Documentation:
   
 EmptyLines:
   Enabled: false
+
+  
+EmptyLinesAroundBody:
+  Enabled: false 
 
 Encoding:
   Enabled: false
