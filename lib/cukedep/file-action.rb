@@ -19,15 +19,15 @@ class FileAction
 
 
   # Datavalue semantic: FileActions don't have identity
-  def ==(another)
-    return true if self.object_id == another.object_id
-    return false if self.class != another.class
+  def ==(other)
+    return true if object_id == other.object_id
+    return false if self.class != other.class
 
     attrs = [:patterns, :delta]
     equality = true
 
     attrs.each do |accessor|
-      equality = self.send(accessor) == another.send(accessor)
+      equality = send(accessor) == other.send(accessor)
       break unless equality
     end
 
@@ -36,10 +36,13 @@ class FileAction
 
 
   protected
+
   def validate_file_patterns(filePatterns)
-    raise StandardError, 'Expecting a list of file patterns' unless filePatterns.kind_of?(Array)
+    err_msg = 'Expecting a list of file patterns'
+    fail StandardError, err_msg unless filePatterns.kind_of?(Array)
     filePatterns.each do |filePatt|
-      raise StandardError, "Invalid value in list of file patterns: #{filePatt}" unless filePatt.kind_of?(String)
+      err_msg = "Invalid value in list of file patterns: #{filePatt}"
+      fail StandardError, err_msg unless filePatt.kind_of?(String)
     end
 
     return filePatterns
@@ -47,11 +50,11 @@ class FileAction
 
   def validate_delta(aDelta)
     case aDelta
-    when NilClass then validated = nil
-    when String
-      validated = aDelta.empty? ? nil : aDelta
-    else
-      raise StandardError, 'Invalid relative path #{aDelta}'
+      when NilClass then validated = nil
+      when String
+        validated = aDelta.empty? ? nil : aDelta
+      else
+        fail StandardError, 'Invalid relative path #{aDelta}'
     end
 
     return validated
@@ -89,7 +92,7 @@ class DeleteAction < FileAction
   def run!(targetDir)
     return if patterns.empty?
     orig_dir = Dir.getwd  # Store current work directory
-    #pp orig_dir
+    # pp orig_dir
 
     begin
       Dir.chdir(full_path(targetDir))
@@ -103,6 +106,7 @@ class DeleteAction < FileAction
   end
 
   private
+
   def single_action(aFilename)
     FileUtils.remove_file(aFilename)
   end
@@ -136,6 +140,7 @@ class CopyAction < FileAction
   end
 
   private
+  
   def single_action(aFilename, aDirectory)
     FileUtils.cp(aFilename, aDirectory)
   end
@@ -143,29 +148,34 @@ class CopyAction < FileAction
 end # class
 
 
-# An (file) action triplet combines three FileActions that are executed in sequence.
+# An (file) action triplet combines three FileActions 
+# that are executed in sequence.
 class ActionTriplet
 
   attr_reader(:save_action)
   attr_reader(:delete_action)
   attr_reader(:copy_action)
 
-  #[theActionSettings] An object that responds to the [] operator.
-  # The argument of the operator must be: :save_patterns, :save_subdir, :delete_patterns, :delete_subdir,
+  # [theActionSettings] An object that responds to the [] operator.
+  # The argument of the operator must be:
+  # :save_patterns, :save_subdir, :delete_patterns, :delete_subdir,
   # :copy_patterns, :copy_subdir
   def initialize(theActionSettings)
-    @save_action = CopyAction.new(theActionSettings[:save_patterns], theActionSettings[:save_subdir])
-    @delete_action = DeleteAction.new(theActionSettings[:delete_patterns], theActionSettings[:delete_subdir])
-    @copy_action = CopyAction.new(theActionSettings[:copy_patterns], theActionSettings[:copy_subdir])
+    @save_action = CopyAction.new(theActionSettings[:save_patterns], 
+      theActionSettings[:save_subdir])
+    @delete_action = DeleteAction.new(theActionSettings[:delete_patterns],
+      theActionSettings[:delete_subdir])
+    @copy_action = CopyAction.new(theActionSettings[:copy_patterns],
+      theActionSettings[:copy_subdir])
   end
 
 
-  def ==(another)
-    return true if self.object_id == another.object_id
+  def ==(other)
+    return true if object_id == other.object_id
 
-    return (save_action == another.save_action) &&
-      (delete_action == another.delete_action) &&
-      (copy_action == another.copy_action)
+    return (save_action == other.save_action) &&
+      (delete_action == other.delete_action) &&
+      (copy_action == other.copy_action)
   end
 
 
@@ -181,7 +191,7 @@ class ActionTriplet
   # Return nil if no triplet was found for the event.
   def self.builtin(anEvent)
     @@builtin_actions ||= {
-      before_each: ActionTriplet.new( {
+      before_each: ActionTriplet.new({
         save_patterns: [],
         save_subdir: '',
         delete_patterns: ['*.feature'],
@@ -189,7 +199,7 @@ class ActionTriplet
         copy_patterns: [],
         copy_subdir: './features'
       }),
-      after_each: ActionTriplet.new( {
+      after_each: ActionTriplet.new({
         save_patterns: [],
         save_subdir: '',
         delete_patterns: ['*.feature'], # Remove feature files after the run

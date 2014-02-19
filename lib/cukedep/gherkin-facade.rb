@@ -38,8 +38,11 @@ module Cukedep # This module is used as a namespace
       # Parse them
       filenames.each do |fname|
         puts "  #{fname}" if verbose
-        # To prevent encoding issue, open the file with an explicit external encoding
-        File::open(fname, "r:#{external_encoding}") { |f| parser.parse(f.read, fname, 0) }
+        # To prevent encoding issue, open the file
+        # with an explicit external encoding
+        File.open(fname, "r:#{external_encoding}") do |f| 
+          parser.parse(f.read, fname, 0) 
+        end
       end
       
       return aListener

@@ -31,6 +31,7 @@ class FeatureRep
   end
   
   public
+
   # The list of all feature identifiers retrieved from the dependency tags
   def dependency_tags()
     dep_tags = tags.select { |t| t =~ DependencyPrefix }

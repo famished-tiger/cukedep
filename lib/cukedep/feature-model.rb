@@ -14,7 +14,7 @@ module Cukedep # This module is used as a namespace
 # See also: Is this topological sort in Ruby flawed?
 class FeatureModel
 
-FeatureDependencies = Struct.new(:dependee, :dependents)
+  FeatureDependencies = Struct.new(:dependee, :dependents)
 
 # Helper class used internally by FeatureModel class.
 # Purpose: to try to create a valid dependency graph and perform a
@@ -164,7 +164,7 @@ EOS
   
   # Output the nodes as graph vertices + their edges with parent node
   def emit_body(anIO)
-  anIO.puts  <<-EOS
+    anIO.puts  <<-EOS
   subgraph island {
     node [shape = box, style=filled, color=lightgray];
 EOS
@@ -243,6 +243,7 @@ EOS
 
 
   protected
+
   def validated_model(theFeatureFiles)
     return theFeatureFiles
   end
@@ -279,7 +280,7 @@ EOS
         unless aMapping.include?(a_tag)
           msg_p1 = "Feature with identifier '#{its_id}'"
           msg_p2 = " depends on unknown feature '#{a_tag}'"
-          fail(StandardError, msg_p1 = msg_p2)
+          fail(StandardError, msg_p1, msg_p2)
         end
         aMapping[a_tag]
       end
