@@ -1,3 +1,7 @@
+### 0.1.05 / 2014-02-20
+* [CHANGE] File `.rubocop.yml`. Updated, cop EmptyLinesAroundBody disabled.
+* [CHANGE] Style of several /lib files improved:  `feature-model`, `feature-rep`, `file-action`, `gherkin-facade`, `hook-dsl`, `sandbox`.
+
 ### 0.1.04 / 2013-01-14
 * [CHANGE] File `.travis.yml`. Addition of MRI Ruby 2.1.0 to Travis CI.
 * [CHANGE] File `LICENSE.txt`. Addition of 2014 in copyright year.
