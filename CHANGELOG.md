@@ -1,4 +1,7 @@
-### 0.1.05 / 2014-02-20
+### 0.1.06 / 2014-02-20
+* [CHANGE] Round of code style improvement complete.
+
+### 0.1.05 / 2014-02-19
 * [CHANGE] File `.rubocop.yml`. Updated, cop EmptyLinesAroundBody disabled.
 * [CHANGE] Style of several /lib files improved:  `feature-model`, `feature-rep`, `file-action`, `gherkin-facade`, `hook-dsl`, `sandbox`.
 
