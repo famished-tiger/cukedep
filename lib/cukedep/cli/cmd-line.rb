@@ -26,7 +26,7 @@ class CmdLine
 
   # Constructor.
   def initialize()
-    @options = { }
+    @options = {}
 
     @parser = OptionParser.new do |opts|
       opts.banner = <<-EOS
@@ -68,7 +68,8 @@ EOS
     end
   end
 
-public
+  public
+
   # Perform the command-line parsing
   def parse!(theCmdLineArgs)
     begin
@@ -88,7 +89,8 @@ public
     return options
   end
 
-private
+  private
+  
   def validated_project(theProjectPath)
     unless Dir.exist?(theProjectPath)
       fail StandardError, "Cannot find the directory '#{theProjectPath}'."

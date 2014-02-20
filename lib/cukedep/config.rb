@@ -44,18 +44,18 @@ class Config
 
     return instance
   end
-  
-  
+
+
   # Read the YAML file with specified name from the current working directory.
   # If that file does not exist, then return an instance with default values.
   def self.load_cfg(filename)
     # TODO: validation
-    instance = File.exist?(filename) ? YAML.load_file(filename) : self.default
-    
+    instance = File.exist?(filename) ? YAML.load_file(filename) : default
+
     return instance
   end
 
-  
+
   # Save the Config object to a YAML file.
   def write(filename)
     File.open(filename, 'w') { |f| YAML.dump(self, f) }

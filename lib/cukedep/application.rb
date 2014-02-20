@@ -12,7 +12,8 @@ module Cukedep # Module used as a namespace
 # Runner for the Cukedep application.
 class Application
   attr_reader(:proj_dir)
-public
+  
+  public
 
   # Entry point for the application object.
   def run!(theCmdLineArgs)
@@ -44,7 +45,8 @@ public
     end
   end
 
-protected
+  protected
+
   # Retrieve the user-entered command-line options
   def options_from(theCmdLineArgs)
     cli = CLI::CmdLine.new
@@ -97,8 +99,10 @@ protected
     
     # Generate CSV files detailing the feature to identifier mapping
     # and vise versa
-    # TODO: replace hardcoded names by value from config
-    aModel.mapping_reports(aConfig.feature2id.name, aConfig.id2feature.name, true)
+    # TODO: replace hard-coded names by value from config
+    feature2id_report = aConfig.feature2id.name
+    id2feature_report = aConfig.id2feature.name
+    aModel.mapping_reports(feature2id_report, id2feature_report, true)
     aModel.draw_dependency_graph(aConfig.graph_file.name, true)
     aModel.generate_rake_tasks(aConfig.rake_file, proj_dir)
   end

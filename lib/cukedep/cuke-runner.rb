@@ -36,7 +36,7 @@ module Cukedep # This module is used as a namespace
 class CukeRunner
   # The current state of the runner.
   attr_reader(:state)
-  
+
   # The absolute path of the root's project directory
   attr_reader(:proj_dir)
   attr_reader(:base_dir)
@@ -51,14 +51,14 @@ class CukeRunner
     @proj_dir = validated_proj_dir(projectDir)
     @config = aConfig
     @handlers = Customization.new.build_handlers(baseDir)
-    
+
     @state = :Initialized
   end
 
   # Launch Cucumber in the project directory.
   def invoke()
     options = [] # TODO: retrieve Cucumber options
-    orig_dir = Dir.getwd()
+    orig_dir = Dir.getwd
     Dir.chdir(proj_dir)
 
     begin
@@ -66,7 +66,7 @@ class CukeRunner
         t.cucumber_opts = options
       end
 
-      cuke_task.runner.run()
+      cuke_task.runner.run
     rescue SystemExit => exc  # Cucumber reports a failure.
       raise StandardError, "Cucumber exited with status #{exc.status}"
     ensure
@@ -86,7 +86,7 @@ class CukeRunner
 
     # Execute before all hook code
     run_code_block
-    
+
     # Execute file actions
     builtin_actions = ActionTriplet.builtin(:before_all)
     custom_actions = ActionTriplet.new(config.before_all_f_actions)
@@ -108,7 +108,7 @@ class CukeRunner
     builtin_actions = ActionTriplet.builtin(:after_all)
     custom_actions = ActionTriplet.new(config.after_all_f_actions)
     run_triplets([builtin_actions, custom_actions])
-    
+
     # Execute before all hook code
     run_code_block
     @state = :Complete
@@ -124,20 +124,21 @@ class CukeRunner
 
 
   private
+
   def validated_proj_dir(projectDir)
     path = Pathname.new(projectDir)
     path = path.expand_path if path.relative?
     unless path.exist?
-      raise StandardError, "No such project path: '#{path}'"
+      fail StandardError, "No such project path: '#{path}'"
     end
-    
+
     return path.to_s
   end
-  
+
   def expected_state(aState)
     unless state == aState
       msg = "expected state was '#{aState}' instead of '#{state}'."
-      raise StandardError, msg
+      fail StandardError, msg
     end
   end
 
@@ -179,18 +180,18 @@ class CukeRunner
     # Do all copy actions...
     all_triplets.each { |t| t.copy_action.run!(base_dir, proj_dir) }
   end
-  
+
 
   def run_code_block(*args)
     # Retrieve the name of the parent method.
-    parent_mth = (caller[0].sub(/^(.+):in (.+)$/, "\\2"))[1..-2]
+    parent_mth = (caller[0].sub(/^(.+):in (.+)$/, '\2'))[1..-2]
     kind, scope = parent_mth.split('_')
     hook_kind = (kind + '_hooks')
-    
+
     kode = handlers[hook_kind.to_sym][scope.to_sym]
     unless kode.nil?
       safe_args = args.map { |one_arg| one_arg.dup.freeze }
-      kode.call(*safe_args) 
+      kode.call(*safe_args)
     end
   end
 

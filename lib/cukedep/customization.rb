@@ -19,7 +19,7 @@ module Cukedep # This module is used as a namespace
         obj.extend(HookDSL)
         hook_source = File.read(filepath)
         obj.instance_eval(hook_source)
-        handlers =  { 
+        handlers =  {
           before_hooks: obj.before_hooks,
           after_hooks: obj.after_hooks
         }
