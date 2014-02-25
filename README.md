@@ -125,5 +125,5 @@ While feature `bar` may start like this:
 
 Copyright
 ---------
-Copyright (c) 2013, Dimitri Geshef. 
+Copyright (c) 2013, 2014, Dimitri Geshef. 
 __Cukedep__ is released under the MIT License see [LICENSE.txt](https://github.com/famished-tiger/Cukedep/blob/master/LICENSE.txt) for details.
