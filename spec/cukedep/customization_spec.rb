@@ -17,8 +17,8 @@ describe Customization do
       expect { subject.build_handlers(directory) }.not_to raise_error
       expect(subject.build_handlers(directory)).not_to be_nil
       handlers = subject.build_handlers(directory)
-      expect(handlers[:before_hooks]).to have(2).items
-      expect(handlers[:after_hooks]).to have(2).items
+      expect(handlers[:before_hooks].size).to eq(2)
+      expect(handlers[:after_hooks].size).to eq(2)
     end
 
     it 'should return nil when hook file absent' do

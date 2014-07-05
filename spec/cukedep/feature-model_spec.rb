@@ -15,8 +15,8 @@ describe FeatureModel do
   # An array of FeatureFile objects created after parsing sample files.
   FeatureFiles = begin
     listener = GherkinListener.new
-    self.extend(FileParsing)
-    parse_for(listener) # Use mixin module to parse of sample feature files
+    self.extend(FileParsing)  # Add behaviour from mixin module
+    parse_for(listener) # Method from mixin to parse sample feature files
     listener.feature_files
   end
   
@@ -37,7 +37,7 @@ describe FeatureModel do
   context 'Provided services:' do
     it 'should list all features without identifiers' do
       unidentified = subject.anonymous_features
-      expect(unidentified).to have(1).items
+      expect(unidentified.size).to eq(1)
       expect(unidentified[0].filepath).to match(/standalone\.feature$/)
     end
    
@@ -45,13 +45,13 @@ describe FeatureModel do
       # Case of a single id argument
       one_id = 'foo'
       found = subject.select_by_ids(one_id)
-      expect(found).to have(1).items
+      expect(found.size).to eq(1)
       expect(found[0].feature.identifier).to eq(one_id)
       
       # Case of multiple id arguments
       second_id = 'qux'
       found = subject.select_by_ids(one_id, second_id)
-      expect(found).to have(2).items
+      expect(found.size).to eq(2)
       actual_ids = found.map {|ff| ff.feature.identifier}
       expected_ids = [one_id, second_id]
       expect(actual_ids.sort).to eq(expected_ids.sort)

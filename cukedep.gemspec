@@ -8,14 +8,14 @@ require_relative './lib/cukedep/constants'
 
 
 CUKEDEP_GEMSPEC = Gem::Specification.new do |pkg|
-	pkg.name = "cukedep"
+	pkg.name = 'cukedep'
 	pkg.version = Cukedep::Version
-	pkg.author = "Dimitri Geshef"
-	pkg.email = "famished.tiger@yahoo.com"
-	pkg.homepage = "https://github.com/famished-tiger/Cukedep"
+	pkg.author = 'Dimitri Geshef'
+	pkg.email = 'famished.tiger@yahoo.com'
+	pkg.homepage = 'https://github.com/famished-tiger/Cukedep'
 	pkg.platform = Gem::Platform::RUBY
 	pkg.summary = Cukedep::Description
-	pkg.description = "Handle dependencies between feature files"
+	pkg.description = 'Handle dependencies between feature files'
 	pkg.post_install_message =<<EOSTRING
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Thank you for installing Cukedep...
@@ -30,12 +30,12 @@ EOSTRING
 	pkg.require_path = "lib"
 	
 	pkg.extra_rdoc_files = ['README.md']
-  pkg.add_runtime_dependency('cucumber',[">= 0.7.0"])
-  pkg.add_runtime_dependency('gherkin',[">= 1.0.24"])
-  pkg.add_runtime_dependency('rake',[">= 0.8.0"])
-  pkg.add_development_dependency('rspec',[">= 2.11.0"])
-  pkg.add_development_dependency('simplecov',[">= 0.5.0"])
-  pkg.add_development_dependency('rubygems', [">= 2.0.0"])
+  pkg.add_runtime_dependency('cucumber',['>= 0.7.0'])
+  pkg.add_runtime_dependency('gherkin',['>= 1.0.24'])
+  pkg.add_runtime_dependency('rake',['>= 0.8.0'])
+  pkg.add_development_dependency('rspec',['>= 3.0.0'])
+  pkg.add_development_dependency('simplecov',['>= 0.5.0'])
+  pkg.add_development_dependency('rubygems', ['>= 2.0.0'])
 	
 	pkg.bindir = 'bin'
 	pkg.executables = ['cukedep']

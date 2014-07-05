@@ -18,11 +18,11 @@ describe GherkinFacade do
     
     it 'should whether it is verbose or not' do
       # Case 1: instance is verbose
-      expect(subject.verbose).to be_false
+      expect(subject.verbose).to be_falsey
       
       # Case 2: instance is silent
       instance =  GherkinFacade.new(true, 'UTF-8')
-      expect(instance.verbose).to be_true 
+      expect(instance.verbose).to be_truthy 
     end
     
     it 'should know the feature file external encoding' do

@@ -32,7 +32,7 @@ describe Application do
       expect { subject.run!(['--setup'])}.to raise_error(SystemExit)
       
       # Check that the config file was effectively created.
-      expect { File.exist?(Cukedep::YMLFilename) }.to be_true
+      expect(File.exist?(Cukedep::YMLFilename)).to be true
       created_config = Config.load_cfg(Cukedep::YMLFilename)
       expect(created_config).to eq(Config.default)
       
@@ -52,7 +52,7 @@ describe Application do
     it 'should complain in absence of project dir' do
       # Start state: no config
       File.delete(Cukedep::YMLFilename) if File.exist?(Cukedep::YMLFilename)
-      expect(File.exist?(Cukedep::YMLFilename)).to be_false
+      expect(File.exist?(Cukedep::YMLFilename)).to be_falsey
       
       # Create default config
       expect { subject.run!(['--setup'])}.to raise_error(SystemExit)

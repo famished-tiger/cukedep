@@ -1,0 +1,417 @@
+.........{:save_patterns=>[],
+ :save_subdir=>"",
+ :delete_patterns=>[],
+ :delete_subdir=>"",
+ :copy_patterns=>["*.txt"],
+ :copy_subdir=>""}
+"C:/Ruby193/lib/ruby/site_ruby/Cukedep/spec/cukedep"
+"C:/Ruby193/lib/ruby/site_ruby/Cukedep/spec/cukedep/sample_features/files_to_copy"
+"C:/Ruby193/lib/ruby/site_ruby/Cukedep/spec/cukedep/sample_features/files_to_copy"
+spec/cukedep/file-action_spec.rb:321::-:         instance.run!(Dir.getwd, proj_dir)
+spec/cukedep/file-action_spec.rb:273:RSpec::ExampleGroups::CukedepActionTriplet::ActionsOnFiles:>:     def proj_dir()
+spec/cukedep/file-action_spec.rb:274:RSpec::ExampleGroups::CukedepActionTriplet::ActionsOnFiles:-:       my_dir = File.join(File.dirname(__FILE__), '/dummy_project')
+spec/cukedep/file-action_spec.rb:276:RSpec::ExampleGroups::CukedepActionTriplet::ActionsOnFiles:-:       unless Dir.exist?(my_dir)
+spec/cukedep/file-action_spec.rb:279:RSpec::ExampleGroups::CukedepActionTriplet::ActionsOnFiles:-:         clean_dir(my_dir)
+spec/cukedep/file-action_spec.rb:291:RSpec::ExampleGroups::CukedepActionTriplet::ActionsOnFiles:>:     def clean_dir(aDirectory)
+spec/cukedep/file-action_spec.rb:293:RSpec::ExampleGroups::CukedepActionTriplet::ActionsOnFiles:-:       instance = DeleteAction.new(all_files, '')
+spec/cukedep/file-action_spec.rb:190:RSpec::ExampleGroups::CukedepActionTriplet:>:   def all_files()
+spec/cukedep/file-action_spec.rb:191:RSpec::ExampleGroups::CukedepActionTriplet:-:     return ['*.*']
+spec/cukedep/file-action_spec.rb:192:RSpec::ExampleGroups::CukedepActionTriplet:<:   end
+/file-action.rb:88:Cukedep::DeleteAction:>:   def initialize(thePatterns, aDelta = nil)
+/file-action.rb:89:Cukedep::DeleteAction:-:     super(thePatterns, aDelta)
+/file-action.rb:15:Cukedep::FileAction:>:   def initialize(thePatterns, aDelta = nil)
+/file-action.rb:16:Cukedep::FileAction:-:     @patterns = validate_file_patterns(thePatterns)
+/file-action.rb:40:Cukedep::FileAction:>:   def validate_file_patterns(filePatterns)
+/file-action.rb:41:Cukedep::FileAction:-:     err_msg = 'Expecting a list of file patterns'
+/file-action.rb:42:Cukedep::FileAction:-:     fail StandardError, err_msg unless filePatterns.kind_of?(Array)
+/file-action.rb:43:Cukedep::FileAction:-:     filePatterns.each do |filePatt|
+/file-action.rb:44:Cukedep::FileAction:-:       err_msg = "Invalid value in list of file patterns: #{filePatt}"
+/file-action.rb:45:Cukedep::FileAction:-:       fail StandardError, err_msg unless filePatt.kind_of?(String)
+/file-action.rb:48:Cukedep::FileAction:-:     return filePatterns
+/file-action.rb:49:Cukedep::FileAction:<:   end
+/file-action.rb:17:Cukedep::FileAction:-:     @delta  = validate_delta(aDelta)
+/file-action.rb:51:Cukedep::FileAction:>:   def validate_delta(aDelta)
+/file-action.rb:52:Cukedep::FileAction:-:     case aDelta
+/file-action.rb:55:Cukedep::FileAction:-:         validated = aDelta.empty? ? nil : aDelta
+/file-action.rb:60:Cukedep::FileAction:-:     return validated
+/file-action.rb:61:Cukedep::FileAction:<:   end
+/file-action.rb:18:Cukedep::FileAction:<:   end
+/file-action.rb:90:Cukedep::DeleteAction:<:   end
+spec/cukedep/file-action_spec.rb:296:RSpec::ExampleGroups::CukedepActionTriplet::ActionsOnFiles:-:       instance.run!(aDirectory)
+/file-action.rb:92:Cukedep::DeleteAction:>:   def run!(targetDir)
+/file-action.rb:93:Cukedep::DeleteAction:-:     return if patterns.empty?
+/file-action.rb:94:Cukedep::DeleteAction:-:     orig_dir = Dir.getwd  # Store current work directory
+/file-action.rb:97:Cukedep::DeleteAction:-:     begin
+/file-action.rb:98:Cukedep::DeleteAction:-:       Dir.chdir(full_path(targetDir))
+/file-action.rb:98:Cukedep::DeleteAction:-:       Dir.chdir(full_path(targetDir))
+/file-action.rb:65:Cukedep::FileAction:>:   def full_path(targetDir)
+/file-action.rb:66:Cukedep::FileAction:-:     if delta.nil?
+/file-action.rb:67:Cukedep::FileAction:-:       result = Pathname.new(targetDir)
+/file-action.rb:72:Cukedep::FileAction:-:     path = result.relative? ? result.expand_path : result
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:219:Pathname:>:   def relative?
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:220:Pathname:-:     path = @path
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:221:Pathname:-:     while r = chop_basename(path)
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:43:Pathname:>:   def chop_basename(path)
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:44:Pathname:-:     base = File.basename(path)
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:45:Pathname:-:     if /\A#{SEPARATOR_PAT}?\z/o =~ base
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:48:Pathname:-:       return path[0, path.rindex(base)], base
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:50:Pathname:<:   end
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:222:Pathname:-:       path, = r
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:43:Pathname:>:   def chop_basename(path)
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:44:Pathname:-:     base = File.basename(path)
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:45:Pathname:-:     if /\A#{SEPARATOR_PAT}?\z/o =~ base
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:48:Pathname:-:       return path[0, path.rindex(base)], base
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:50:Pathname:<:   end
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:222:Pathname:-:       path, = r
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:43:Pathname:>:   def chop_basename(path)
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:44:Pathname:-:     base = File.basename(path)
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:45:Pathname:-:     if /\A#{SEPARATOR_PAT}?\z/o =~ base
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:48:Pathname:-:       return path[0, path.rindex(base)], base
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:50:Pathname:<:   end
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:222:Pathname:-:       path, = r
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:43:Pathname:>:   def chop_basename(path)
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:44:Pathname:-:     base = File.basename(path)
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:45:Pathname:-:     if /\A#{SEPARATOR_PAT}?\z/o =~ base
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:48:Pathname:-:       return path[0, path.rindex(base)], base
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:50:Pathname:<:   end
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:222:Pathname:-:       path, = r
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:43:Pathname:>:   def chop_basename(path)
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:44:Pathname:-:     base = File.basename(path)
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:45:Pathname:-:     if /\A#{SEPARATOR_PAT}?\z/o =~ base
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:48:Pathname:-:       return path[0, path.rindex(base)], base
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:50:Pathname:<:   end
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:222:Pathname:-:       path, = r
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:43:Pathname:>:   def chop_basename(path)
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:44:Pathname:-:     base = File.basename(path)
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:45:Pathname:-:     if /\A#{SEPARATOR_PAT}?\z/o =~ base
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:48:Pathname:-:       return path[0, path.rindex(base)], base
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:50:Pathname:<:   end
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:222:Pathname:-:       path, = r
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:43:Pathname:>:   def chop_basename(path)
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:44:Pathname:-:     base = File.basename(path)
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:45:Pathname:-:     if /\A#{SEPARATOR_PAT}?\z/o =~ base
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:48:Pathname:-:       return path[0, path.rindex(base)], base
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:50:Pathname:<:   end
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:222:Pathname:-:       path, = r
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:43:Pathname:>:   def chop_basename(path)
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:44:Pathname:-:     base = File.basename(path)
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:45:Pathname:-:     if /\A#{SEPARATOR_PAT}?\z/o =~ base
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:48:Pathname:-:       return path[0, path.rindex(base)], base
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:50:Pathname:<:   end
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:222:Pathname:-:       path, = r
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:43:Pathname:>:   def chop_basename(path)
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:44:Pathname:-:     base = File.basename(path)
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:45:Pathname:-:     if /\A#{SEPARATOR_PAT}?\z/o =~ base
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:50:Pathname:<:   end
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:224:Pathname:-:     path == ''
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:225:Pathname:<:   end
+/file-action.rb:74:Cukedep::FileAction:-:     return path.to_s
+/file-action.rb:75:Cukedep::FileAction:<:   end
+/file-action.rb:100:Cukedep::DeleteAction:-:       patterns.each do |pattern|
+/file-action.rb:101:Cukedep::DeleteAction:-:         Dir.glob(pattern) { |fname| single_action(fname) }
+/file-action.rb:104:Cukedep::DeleteAction:-:       Dir.chdir(orig_dir) # Restore original work directory
+/file-action.rb:106:Cukedep::DeleteAction:<:   end
+spec/cukedep/file-action_spec.rb:297:RSpec::ExampleGroups::CukedepActionTriplet::ActionsOnFiles:<:     end
+spec/cukedep/file-action_spec.rb:282:RSpec::ExampleGroups::CukedepActionTriplet::ActionsOnFiles:-:       return my_dir
+spec/cukedep/file-action_spec.rb:283:RSpec::ExampleGroups::CukedepActionTriplet::ActionsOnFiles:<:     end
+/file-action.rb:183:Cukedep::ActionTriplet:>:   def run!(currentDir, projectDir)
+/file-action.rb:184:Cukedep::ActionTriplet:-:     save_action.run!(projectDir, currentDir)
+/file-action.rb:125:Cukedep::CopyAction:>:   def run!(sourceDir, targetDir)
+/file-action.rb:126:Cukedep::CopyAction:-:     return if patterns.empty?
+/file-action.rb:126:Cukedep::CopyAction:<:     return if patterns.empty?
+/file-action.rb:185:Cukedep::ActionTriplet:-:     delete_action.run!(projectDir)
+/file-action.rb:92:Cukedep::DeleteAction:>:   def run!(targetDir)
+/file-action.rb:93:Cukedep::DeleteAction:-:     return if patterns.empty?
+/file-action.rb:93:Cukedep::DeleteAction:<:     return if patterns.empty?
+/file-action.rb:186:Cukedep::ActionTriplet:-:     copy_action.run!(currentDir, projectDir)
+/file-action.rb:125:Cukedep::CopyAction:>:   def run!(sourceDir, targetDir)
+/file-action.rb:126:Cukedep::CopyAction:-:     return if patterns.empty?
+/file-action.rb:127:Cukedep::CopyAction:-:     orig_dir = Dir.getwd  # Store current work directory
+/file-action.rb:129:Cukedep::CopyAction:-:     begin
+/file-action.rb:130:Cukedep::CopyAction:-:       Dir.chdir(sourceDir)
+/file-action.rb:130:Cukedep::CopyAction:-:       Dir.chdir(sourceDir)
+/file-action.rb:132:Cukedep::CopyAction:-:       destination = full_path(targetDir)
+/file-action.rb:65:Cukedep::FileAction:>:   def full_path(targetDir)
+/file-action.rb:66:Cukedep::FileAction:-:     if delta.nil?
+/file-action.rb:67:Cukedep::FileAction:-:       result = Pathname.new(targetDir)
+/file-action.rb:72:Cukedep::FileAction:-:     path = result.relative? ? result.expand_path : result
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:219:Pathname:>:   def relative?
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:220:Pathname:-:     path = @path
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:221:Pathname:-:     while r = chop_basename(path)
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:43:Pathname:>:   def chop_basename(path)
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:44:Pathname:-:     base = File.basename(path)
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:45:Pathname:-:     if /\A#{SEPARATOR_PAT}?\z/o =~ base
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:48:Pathname:-:       return path[0, path.rindex(base)], base
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:50:Pathname:<:   end
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:222:Pathname:-:       path, = r
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:43:Pathname:>:   def chop_basename(path)
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:44:Pathname:-:     base = File.basename(path)
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:45:Pathname:-:     if /\A#{SEPARATOR_PAT}?\z/o =~ base
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:48:Pathname:-:       return path[0, path.rindex(base)], base
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:50:Pathname:<:   end
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:222:Pathname:-:       path, = r
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:43:Pathname:>:   def chop_basename(path)
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:44:Pathname:-:     base = File.basename(path)
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:45:Pathname:-:     if /\A#{SEPARATOR_PAT}?\z/o =~ base
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:48:Pathname:-:       return path[0, path.rindex(base)], base
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:50:Pathname:<:   end
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:222:Pathname:-:       path, = r
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:43:Pathname:>:   def chop_basename(path)
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:44:Pathname:-:     base = File.basename(path)
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:45:Pathname:-:     if /\A#{SEPARATOR_PAT}?\z/o =~ base
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:48:Pathname:-:       return path[0, path.rindex(base)], base
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:50:Pathname:<:   end
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:222:Pathname:-:       path, = r
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:43:Pathname:>:   def chop_basename(path)
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:44:Pathname:-:     base = File.basename(path)
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:45:Pathname:-:     if /\A#{SEPARATOR_PAT}?\z/o =~ base
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:48:Pathname:-:       return path[0, path.rindex(base)], base
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:50:Pathname:<:   end
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:222:Pathname:-:       path, = r
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:43:Pathname:>:   def chop_basename(path)
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:44:Pathname:-:     base = File.basename(path)
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:45:Pathname:-:     if /\A#{SEPARATOR_PAT}?\z/o =~ base
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:48:Pathname:-:       return path[0, path.rindex(base)], base
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:50:Pathname:<:   end
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:222:Pathname:-:       path, = r
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:43:Pathname:>:   def chop_basename(path)
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:44:Pathname:-:     base = File.basename(path)
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:45:Pathname:-:     if /\A#{SEPARATOR_PAT}?\z/o =~ base
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:48:Pathname:-:       return path[0, path.rindex(base)], base
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:50:Pathname:<:   end
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:222:Pathname:-:       path, = r
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:43:Pathname:>:   def chop_basename(path)
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:44:Pathname:-:     base = File.basename(path)
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:45:Pathname:-:     if /\A#{SEPARATOR_PAT}?\z/o =~ base
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:48:Pathname:-:       return path[0, path.rindex(base)], base
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:50:Pathname:<:   end
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:222:Pathname:-:       path, = r
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:43:Pathname:>:   def chop_basename(path)
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:44:Pathname:-:     base = File.basename(path)
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:45:Pathname:-:     if /\A#{SEPARATOR_PAT}?\z/o =~ base
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:50:Pathname:<:   end
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:224:Pathname:-:     path == ''
+#0:C:/Ruby193/lib/ruby/1.9.1/pathname.rb:225:Pathname:<:   end
+/file-action.rb:74:Cukedep::FileAction:-:     return path.to_s
+/file-action.rb:75:Cukedep::FileAction:<:   end
+/file-action.rb:134:Cukedep::CopyAction:-:       patterns.each do |pattern|
+/file-action.rb:135:Cukedep::CopyAction:-:         Dir.glob(pattern) { |fname| single_action(fname, destination) }
+/file-action.rb:135:Cukedep::CopyAction:-:         Dir.glob(pattern) { |fname| single_action(fname, destination) }
+/file-action.rb:144:Cukedep::CopyAction:>:   def single_action(aFilename, aDirectory)
+/file-action.rb:145:Cukedep::CopyAction:-:     FileUtils.cp(aFilename, aDirectory)
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:391:FileUtils:>:   def cp(src, dest, options = {})
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:392:FileUtils:-:     fu_check_options options, OPT_TABLE['cp']
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1542:FileUtils:>:   def fu_check_options(options, optdecl)   #:nodoc:
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1543:FileUtils:-:     h = options.dup
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1544:FileUtils:-:     optdecl.each do |opt|
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1545:FileUtils:-:       h.delete opt
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1545:FileUtils:-:       h.delete opt
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1545:FileUtils:-:       h.delete opt
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1547:FileUtils:-:     raise ArgumentError, "no such option: #{h.keys.join(' ')}" unless h.empty?
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1548:FileUtils:<:   end
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:393:FileUtils:-:     fu_output_message "cp#{options[:preserve] ? ' -p' : ''} #{[src,dest].flatten.join ' '}" if options[:verbose]
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:394:FileUtils:-:     return if options[:noop]
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:395:FileUtils:-:     fu_each_src_dest(src, dest) do |s, d|
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1512:FileUtils:>:   def fu_each_src_dest(src, dest)   #:nodoc:
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1513:FileUtils:-:     fu_each_src_dest0(src, dest) do |s, d|
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1520:FileUtils:>:   def fu_each_src_dest0(src, dest)   #:nodoc:
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1521:FileUtils:-:     if tmp = Array.try_convert(src)
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1527:FileUtils:-:       src = File.path(src)
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1527:FileUtils:-:       src = File.path(src)
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1528:FileUtils:-:       if File.directory?(dest)
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1529:FileUtils:-:         yield src, File.join(dest, File.basename(src))
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1514:FileUtils:-:       raise ArgumentError, "same file: #{s} and #{d}" if fu_same?(s, d)
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1537:FileUtils:>:   def fu_same?(a, b)   #:nodoc:
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1538:FileUtils:-:     File.identical?(a, b)
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1539:FileUtils:<:   end
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1515:FileUtils:-:       yield s, d, File.stat(s)
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:396:FileUtils:-:       copy_file s, d, options[:preserve]
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:475:FileUtils:>:   def copy_file(src, dest, preserve = false, dereference = true)
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:476:FileUtils:-:     ent = Entry_.new(src, nil, dereference)
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1192:FileUtils::Entry_:>:     def initialize(a, b = nil, deref = false)
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1193:FileUtils::Entry_:-:       @prefix = @rel = @path = nil
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1194:FileUtils::Entry_:-:       if b
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1198:FileUtils::Entry_:-:         @path = a
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1200:FileUtils::Entry_:-:       @deref = deref
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1201:FileUtils::Entry_:-:       @stat = nil
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1202:FileUtils::Entry_:-:       @lstat = nil
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1203:FileUtils::Entry_:<:     end
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:477:FileUtils:-:     ent.copy_file dest
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1369:FileUtils::Entry_:>:     def copy_file(dest)
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1370:FileUtils::Entry_:-:       File.open(path()) do |s|
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1209:FileUtils::Entry_:>:     def path
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1210:FileUtils::Entry_:-:       if @path
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1211:FileUtils::Entry_:-:         File.path(@path)
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1215:FileUtils::Entry_:<:     end
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1371:FileUtils::Entry_:-:         File.open(dest, 'wb', s.stat.mode) do |f|
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1372:FileUtils::Entry_:-:           IO.copy_stream(s, f)
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1375:FileUtils::Entry_:<:     end
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:478:FileUtils:-:     ent.copy_metadata dest if preserve
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:479:FileUtils:<:   end
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1534:FileUtils:<:   end
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1517:FileUtils:<:   end
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:398:FileUtils:<:   end
+/file-action.rb:146:Cukedep::CopyAction:<:   end
+/file-action.rb:135:Cukedep::CopyAction:-:         Dir.glob(pattern) { |fname| single_action(fname, destination) }
+/file-action.rb:144:Cukedep::CopyAction:>:   def single_action(aFilename, aDirectory)
+/file-action.rb:145:Cukedep::CopyAction:-:     FileUtils.cp(aFilename, aDirectory)
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:391:FileUtils:>:   def cp(src, dest, options = {})
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:392:FileUtils:-:     fu_check_options options, OPT_TABLE['cp']
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1542:FileUtils:>:   def fu_check_options(options, optdecl)   #:nodoc:
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1543:FileUtils:-:     h = options.dup
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1544:FileUtils:-:     optdecl.each do |opt|
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1545:FileUtils:-:       h.delete opt
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1545:FileUtils:-:       h.delete opt
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1545:FileUtils:-:       h.delete opt
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1547:FileUtils:-:     raise ArgumentError, "no such option: #{h.keys.join(' ')}" unless h.empty?
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1548:FileUtils:<:   end
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:393:FileUtils:-:     fu_output_message "cp#{options[:preserve] ? ' -p' : ''} #{[src,dest].flatten.join ' '}" if options[:verbose]
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:394:FileUtils:-:     return if options[:noop]
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:395:FileUtils:-:     fu_each_src_dest(src, dest) do |s, d|
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1512:FileUtils:>:   def fu_each_src_dest(src, dest)   #:nodoc:
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1513:FileUtils:-:     fu_each_src_dest0(src, dest) do |s, d|
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1520:FileUtils:>:   def fu_each_src_dest0(src, dest)   #:nodoc:
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1521:FileUtils:-:     if tmp = Array.try_convert(src)
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1527:FileUtils:-:       src = File.path(src)
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1527:FileUtils:-:       src = File.path(src)
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1528:FileUtils:-:       if File.directory?(dest)
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1529:FileUtils:-:         yield src, File.join(dest, File.basename(src))
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1514:FileUtils:-:       raise ArgumentError, "same file: #{s} and #{d}" if fu_same?(s, d)
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1537:FileUtils:>:   def fu_same?(a, b)   #:nodoc:
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1538:FileUtils:-:     File.identical?(a, b)
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1539:FileUtils:<:   end
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1515:FileUtils:-:       yield s, d, File.stat(s)
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:396:FileUtils:-:       copy_file s, d, options[:preserve]
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:475:FileUtils:>:   def copy_file(src, dest, preserve = false, dereference = true)
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:476:FileUtils:-:     ent = Entry_.new(src, nil, dereference)
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1192:FileUtils::Entry_:>:     def initialize(a, b = nil, deref = false)
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1193:FileUtils::Entry_:-:       @prefix = @rel = @path = nil
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1194:FileUtils::Entry_:-:       if b
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1198:FileUtils::Entry_:-:         @path = a
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1200:FileUtils::Entry_:-:       @deref = deref
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1201:FileUtils::Entry_:-:       @stat = nil
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1202:FileUtils::Entry_:-:       @lstat = nil
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1203:FileUtils::Entry_:<:     end
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:477:FileUtils:-:     ent.copy_file dest
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1369:FileUtils::Entry_:>:     def copy_file(dest)
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1370:FileUtils::Entry_:-:       File.open(path()) do |s|
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1209:FileUtils::Entry_:>:     def path
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1210:FileUtils::Entry_:-:       if @path
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1211:FileUtils::Entry_:-:         File.path(@path)
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1215:FileUtils::Entry_:<:     end
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1371:FileUtils::Entry_:-:         File.open(dest, 'wb', s.stat.mode) do |f|
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1372:FileUtils::Entry_:-:           IO.copy_stream(s, f)
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1375:FileUtils::Entry_:<:     end
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:478:FileUtils:-:     ent.copy_metadata dest if preserve
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:479:FileUtils:<:   end
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1534:FileUtils:<:   end
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1517:FileUtils:<:   end
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:398:FileUtils:<:   end
+/file-action.rb:146:Cukedep::CopyAction:<:   end
+/file-action.rb:135:Cukedep::CopyAction:-:         Dir.glob(pattern) { |fname| single_action(fname, destination) }
+/file-action.rb:144:Cukedep::CopyAction:>:   def single_action(aFilename, aDirectory)
+/file-action.rb:145:Cukedep::CopyAction:-:     FileUtils.cp(aFilename, aDirectory)
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:391:FileUtils:>:   def cp(src, dest, options = {})
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:392:FileUtils:-:     fu_check_options options, OPT_TABLE['cp']
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1542:FileUtils:>:   def fu_check_options(options, optdecl)   #:nodoc:
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1543:FileUtils:-:     h = options.dup
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1544:FileUtils:-:     optdecl.each do |opt|
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1545:FileUtils:-:       h.delete opt
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1545:FileUtils:-:       h.delete opt
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1545:FileUtils:-:       h.delete opt
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1547:FileUtils:-:     raise ArgumentError, "no such option: #{h.keys.join(' ')}" unless h.empty?
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1548:FileUtils:<:   end
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:393:FileUtils:-:     fu_output_message "cp#{options[:preserve] ? ' -p' : ''} #{[src,dest].flatten.join ' '}" if options[:verbose]
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:394:FileUtils:-:     return if options[:noop]
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:395:FileUtils:-:     fu_each_src_dest(src, dest) do |s, d|
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1512:FileUtils:>:   def fu_each_src_dest(src, dest)   #:nodoc:
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1513:FileUtils:-:     fu_each_src_dest0(src, dest) do |s, d|
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1520:FileUtils:>:   def fu_each_src_dest0(src, dest)   #:nodoc:
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1521:FileUtils:-:     if tmp = Array.try_convert(src)
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1527:FileUtils:-:       src = File.path(src)
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1527:FileUtils:-:       src = File.path(src)
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1528:FileUtils:-:       if File.directory?(dest)
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1529:FileUtils:-:         yield src, File.join(dest, File.basename(src))
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1514:FileUtils:-:       raise ArgumentError, "same file: #{s} and #{d}" if fu_same?(s, d)
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1537:FileUtils:>:   def fu_same?(a, b)   #:nodoc:
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1538:FileUtils:-:     File.identical?(a, b)
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1539:FileUtils:<:   end
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1515:FileUtils:-:       yield s, d, File.stat(s)
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:396:FileUtils:-:       copy_file s, d, options[:preserve]
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:475:FileUtils:>:   def copy_file(src, dest, preserve = false, dereference = true)
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:476:FileUtils:-:     ent = Entry_.new(src, nil, dereference)
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1192:FileUtils::Entry_:>:     def initialize(a, b = nil, deref = false)
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1193:FileUtils::Entry_:-:       @prefix = @rel = @path = nil
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1194:FileUtils::Entry_:-:       if b
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1198:FileUtils::Entry_:-:         @path = a
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1200:FileUtils::Entry_:-:       @deref = deref
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1201:FileUtils::Entry_:-:       @stat = nil
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1202:FileUtils::Entry_:-:       @lstat = nil
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1203:FileUtils::Entry_:<:     end
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:477:FileUtils:-:     ent.copy_file dest
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1369:FileUtils::Entry_:>:     def copy_file(dest)
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1370:FileUtils::Entry_:-:       File.open(path()) do |s|
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1209:FileUtils::Entry_:>:     def path
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1210:FileUtils::Entry_:-:       if @path
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1211:FileUtils::Entry_:-:         File.path(@path)
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1215:FileUtils::Entry_:<:     end
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1371:FileUtils::Entry_:-:         File.open(dest, 'wb', s.stat.mode) do |f|
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1372:FileUtils::Entry_:-:           IO.copy_stream(s, f)
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1375:FileUtils::Entry_:<:     end
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:478:FileUtils:-:     ent.copy_metadata dest if preserve
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:479:FileUtils:<:   end
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1534:FileUtils:<:   end
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:1517:FileUtils:<:   end
+#0:C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:398:FileUtils:<:   end
+/file-action.rb:146:Cukedep::CopyAction:<:   end
+/file-action.rb:138:Cukedep::CopyAction:-:       Dir.chdir(orig_dir) # Restore original work directory
+/file-action.rb:140:Cukedep::CopyAction:<:   end
+/file-action.rb:187:Cukedep::ActionTriplet:<:   end
+"C:/Ruby193/lib/ruby/site_ruby/Cukedep/spec/cukedep/dummy_project"
+"C:/Ruby193/lib/ruby/site_ruby/Cukedep/spec/cukedep/dummy_project"
+[]
+F
+
+Failures:
+
+  1) Cukedep::ActionTriplet Actions on files: should copy files to specified dir
+     Failure/Error: expect(actuals.size).to eq(3)
+       
+       expected: 3
+            got: 0
+       
+       (compared using ==)
+     lib/rspec/expectations/fail_with.rb:30:in `fail_with'
+     lib/rspec/expectations/handler.rb:35:in `handle_failure'
+     lib/rspec/expectations/handler.rb:48:in `handle_matcher'
+     lib/rspec/expectations/expectation_target.rb:54:in `to'
+     # ./file-action_spec.rb:330:in `block (3 levels) in <module:Cukedep>'
+     # C:/Ruby193/lib/ruby/gems/1.9.1/gems/rspec-core-3.0.2/lib/rspec/core/example.rb:148:in `instance_exec'
+     # C:/Ruby193/lib/ruby/gems/1.9.1/gems/rspec-core-3.0.2/lib/rspec/core/example.rb:148:in `block in run'
+     # C:/Ruby193/lib/ruby/gems/1.9.1/gems/rspec-core-3.0.2/lib/rspec/core/example.rb:301:in `with_around_example_hooks'
+     # C:/Ruby193/lib/ruby/gems/1.9.1/gems/rspec-core-3.0.2/lib/rspec/core/example.rb:145:in `run'
+     # C:/Ruby193/lib/ruby/gems/1.9.1/gems/rspec-core-3.0.2/lib/rspec/core/example_group.rb:494:in `block in run_examples'
+     # C:/Ruby193/lib/ruby/gems/1.9.1/gems/rspec-core-3.0.2/lib/rspec/core/example_group.rb:490:in `map'
+     # C:/Ruby193/lib/ruby/gems/1.9.1/gems/rspec-core-3.0.2/lib/rspec/core/example_group.rb:490:in `run_examples'
+     # C:/Ruby193/lib/ruby/gems/1.9.1/gems/rspec-core-3.0.2/lib/rspec/core/example_group.rb:457:in `run'
+     # C:/Ruby193/lib/ruby/gems/1.9.1/gems/rspec-core-3.0.2/lib/rspec/core/example_group.rb:458:in `block in run'
+     # C:/Ruby193/lib/ruby/gems/1.9.1/gems/rspec-core-3.0.2/lib/rspec/core/example_group.rb:458:in `map'
+     # C:/Ruby193/lib/ruby/gems/1.9.1/gems/rspec-core-3.0.2/lib/rspec/core/example_group.rb:458:in `run'
+     # C:/Ruby193/lib/ruby/gems/1.9.1/gems/rspec-core-3.0.2/lib/rspec/core/runner.rb:112:in `block (2 levels) in run_specs'
+     # C:/Ruby193/lib/ruby/gems/1.9.1/gems/rspec-core-3.0.2/lib/rspec/core/runner.rb:112:in `map'
+     # C:/Ruby193/lib/ruby/gems/1.9.1/gems/rspec-core-3.0.2/lib/rspec/core/runner.rb:112:in `block in run_specs'
+     # C:/Ruby193/lib/ruby/gems/1.9.1/gems/rspec-core-3.0.2/lib/rspec/core/reporter.rb:54:in `report'
+     # C:/Ruby193/lib/ruby/gems/1.9.1/gems/rspec-core-3.0.2/lib/rspec/core/runner.rb:108:in `run_specs'
+     # C:/Ruby193/lib/ruby/gems/1.9.1/gems/rspec-core-3.0.2/lib/rspec/core/runner.rb:86:in `run'
+     # C:/Ruby193/lib/ruby/gems/1.9.1/gems/rspec-core-3.0.2/lib/rspec/core/runner.rb:70:in `run'
+     # C:/Ruby193/lib/ruby/gems/1.9.1/gems/rspec-core-3.0.2/lib/rspec/core/runner.rb:38:in `invoke'
+     # C:/Ruby193/lib/ruby/gems/1.9.1/gems/rspec-core-3.0.2/exe/rspec:4:in `<top (required)>'
+     # C:/Ruby193/bin/rspec:23:in `load'
+     # C:/Ruby193/bin/rspec:23:in `<main>'
+
+Finished in 0.03202 seconds (files took 0.19313 seconds to load)
+10 examples, 1 failure
+
+Failed examples:
+
+rspec ./file-action_spec.rb:307 # Cukedep::ActionTriplet Actions on files: should copy files to specified dir

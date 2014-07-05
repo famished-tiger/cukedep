@@ -21,14 +21,14 @@ describe GherkinListener do
     end
     
     it 'should have no feature file at start' do
-      expect(subject).to have(0).feature_files
+      expect(subject.feature_files.size).to eq(0)
     end
   end # context
   
   context 'Provided services:' do
     it 'should build a FeatureFileRep per parsed file' do
       parse_for(subject)
-      expect(subject).to have(FileParsing::SampleFileNames.size).feature_files
+      expect(subject.feature_files.size).to eq(FileParsing::SampleFileNames.size)
     end
     
     it 'should know the tags of each feature' do

@@ -1,3 +1,6 @@
+### 0.1.07 / 2014-07-05
+* [CHANGE] Spec files updated for RSpec 3.0.x.
+
 ### 0.1.06 / 2014-02-20
 * [CHANGE] Round of code style improvement complete.
 

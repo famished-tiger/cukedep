@@ -1,5 +1,4 @@
 # File: file-action_spec.rb
-
 require_relative '../spec_helper'
 
 # Load the class under testing
@@ -106,7 +105,7 @@ describe CopyAction do
       Dir.chdir(my_dir)
       # Control the result...
       copied_files = Dir.glob(subdir + '/' + '*.*')
-      expect(copied_files).to have(1).items
+      expect(copied_files.size).to eq(1)
 
       # Case: two file patterns
       instance2 = CopyAction.new(['file1.txt', 'file2.txt'], subdir)
@@ -114,7 +113,7 @@ describe CopyAction do
 
       # Control the result...
       copied_files = Dir.glob(subdir + '/' + '*.*')
-      expect(copied_files).to have(3).items
+      expect(copied_files.size).to eq(3)
     end
 
   end # context
@@ -155,7 +154,7 @@ describe DeleteAction do
       
       # Control the result...
       remaining_files = Dir.glob(subdir + '/' + '*.*')
-      expect(remaining_files).to have(2).items
+      expect(remaining_files.size).to eq(2)
 
       # Case: multiple file patterns and no subdir
       instance2 = DeleteAction.new(['file1.txt', 'file3.txt'])
@@ -163,7 +162,7 @@ describe DeleteAction do
 
       # Control the result...
       remaining_files = Dir.glob(subdir + '/' + '*.*')
-      expect(remaining_files).to have(1).items
+      expect(remaining_files.size).to eq(1)
 
       # Delete all files
       instance3 = DeleteAction.new(['*.*'])
@@ -171,7 +170,7 @@ describe DeleteAction do
 
       # Control the result...
       remaining_files = Dir.glob(subdir + '/' + '*.*')
-      expect(remaining_files).to have(0).items
+      expect(remaining_files.size).to eq(0)
     end
   end # context
 
@@ -181,14 +180,20 @@ end # describe
 
 describe ActionTriplet do
 
-  let(:saved_files_dir) do
+  def saved_files_dir()
     my_dir = File.dirname(__FILE__)
-    my_dir + '/sample_features/saved_files'
+    return my_dir + '/sample_features/saved_files'
   end
 
   # File patterns
-  let(:all_files) { ['*.*'] }
-  let(:txt_only) { ['*.txt'] }
+  def all_files()
+    return ['*.*']
+  end
+  
+  
+  def txt_only()
+    return ['*.txt']
+  end
 
   let(:empty_config) do
     {
@@ -264,7 +269,7 @@ describe ActionTriplet do
 
 
     # Directories
-    let(:proj_dir) do
+    def proj_dir()
       my_dir = File.join(File.dirname(__FILE__), '/dummy_project')
       
       unless Dir.exist?(my_dir)
@@ -273,10 +278,10 @@ describe ActionTriplet do
         clean_dir(my_dir)
       end
       
-      my_dir
+      return my_dir
     end
 
-    let(:files_to_copy_dir) do
+    def files_to_copy_dir()
       child = '/sample_features/files_to_copy'
       File.join(File.dirname(__FILE__), child)
     end
@@ -306,16 +311,17 @@ describe ActionTriplet do
 
       # Current dir is the directory containing the files to copy
       Dir.chdir(files_to_copy_dir)
-      instance.run!(Dir.getwd, proj_dir)
+      project_dir = proj_dir
+      instance.run!(Dir.getwd, project_dir)
 
       # Check that the project dir contain the requested files
-      Dir.chdir(proj_dir)
+      Dir.chdir(project_dir)
       actuals = Dir['*.*']
-      expect(actuals).to have(3).items
+      expect(actuals.size).to eq(3)
       expect(actuals.sort).to eq(%w[file1.txt file2.txt file3.txt])
 
       # Clean project dir
-      clean_dir(proj_dir)
+      clean_dir(project_dir)
 
       # Case 2: an instance with just two copy file patterns
       copy_config[:copy_patterns] << 'README.md'
@@ -323,10 +329,10 @@ describe ActionTriplet do
 
       # Current dir is the directory containing the files to copy
       Dir.chdir(files_to_copy_dir)
-      instance.run!(Dir.getwd, proj_dir)
+      instance.run!(Dir.getwd, project_dir)
 
       actuals = Dir['*.*']
-      expect(actuals).to have(4).items
+      expect(actuals.size).to eq(4)
       (txt_files, md_files) = actuals.partition {|f| f =~ /\.txt/}
       expect(txt_files.sort).to eq(%w[file1.txt file2.txt file3.txt])
       expect(md_files).to eq(%w[README.md])
@@ -335,33 +341,35 @@ describe ActionTriplet do
 =begin
     it 'should save files to the specified folder' do
       # Clean saved_files dir
-      Dir.chdir(saved_files_dir)
+      saved = saved_files_dir
+      Dir.chdir(saved)
       pp Dir.getwd
-      expect(Dir['*.*']).to have(4).items
+      expect(Dir['*.*']).to be_empty
 
       save_config = empty_config.dup
       save_config[:save_patterns] = ['README.md']
+      project_dir = proj_dir
 
       # Case 1: the save dir is absolute
       instance = ActionTriplet.new(save_config)
-      instance.run!(Dir.getwd, proj_dir)
+      instance.run!(Dir.getwd, project_dir)
       actuals = Dir['*.*']
-      expect(actuals).to have(1).items
+      expect(actuals.size).to eq(1)
       expect(actuals).to eq(['README.md'])
 
       # Clean again saved_files dir
-      clean_dir(saved_files_dir)
+      clean_dir(saved)
       my_dir = File.dirname(__FILE__)
       save_config[:save_patterns] = txt_only
       save_config[:save_subdir] = './sample_features/saved_files'
 
       instance = ActionTriplet.new(save_config)
       Dir.chdir(my_dir)
-      instance.run!(my_dir, proj_dir)
+      instance.run!(my_dir, project_dir)
 
       Dir.chdir(saved_files_dir)
       actuals = Dir['*.*']
-      expect(actuals).to have(3).items
+      expect(actuals.size).to eq(3)
       expect(actuals.sort).to eq(%w[file1.txt file2.txt file3.txt])
     end
 =end

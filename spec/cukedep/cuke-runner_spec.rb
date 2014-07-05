@@ -1,14 +1,13 @@
 # File: cuke-runner_spec.rb
 
 require_relative '../spec_helper'
-
 require_relative '../../lib/cukedep/config'
 
 # Load the class under testing
 require_relative '../../lib/cukedep/cuke-runner'
 
-module Cukedep # Open module to get rid of long qualified names
 
+module Cukedep # Open module to get rid of long qualified names
 
 describe CukeRunner do
   let(:project_dir) { '../../sample' }
@@ -68,7 +67,8 @@ describe CukeRunner do
 
     it "should run the designated feature files" do
       subject.before_all
-      expect { subject.run!(['a_few_tests.feature']) }.not_to raise_error
+      #expect { 
+      subject.run!(['a_few_tests.feature']) #}.not_to raise_error
     end
 
   end # context
