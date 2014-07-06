@@ -3,7 +3,7 @@
 
 module Cukedep # Module used as a namespace
   # The version number of the gem.
-  Version = '0.1.07'
+  Version = '0.1.08'
 
   # Brief description of the gem.
   Description = 'Manage dependencies between Cucumber feature files'
@@ -11,8 +11,8 @@ module Cukedep # Module used as a namespace
   # Constant Cukedep::RootDir contains the absolute path of Rodent's
   # root directory. Note: it also ends with a slash character.
   unless defined?(RootDir)
-  # The initialisation of constant RootDir is guarded in order
-  # to avoid multiple initialisation (not allowed for constants)
+    # The initialisation of constant RootDir is guarded in order
+    # to avoid multiple initialisation (not allowed for constants)
 
     # The root folder of Cukedep.
     RootDir = begin

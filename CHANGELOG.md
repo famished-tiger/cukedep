@@ -1,3 +1,6 @@
+### 0.1.08 / 2014-07-06
+* [CHANGE] Most source files comply to Rubocop 0.24.1.
+
 ### 0.1.07 / 2014-07-05
 * [CHANGE] Spec files updated for RSpec 3.0.x.
 

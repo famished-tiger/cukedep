@@ -16,39 +16,39 @@ class FeatureModel
 
   FeatureDependencies = Struct.new(:dependee, :dependents)
 
-# Helper class used internally by FeatureModel class.
-# Purpose: to try to create a valid dependency graph and perform a
-# topological sort of the nodes.
-class DepGraph
-  include TSort # Mix-in module for topological sorting
-  
-  attr_reader(:dependencies)
-  
-  # Inverse lookup: from the feature file => FeatureDependencies
-  attr_reader(:lookup)
-  
-  def initialize(theDependencies)
-    @dependencies = theDependencies
-    @lookup = dependencies.each_with_object({}) do |f_dependencies, sub_result|
-      sub_result[f_dependencies.dependee] = f_dependencies
+  # Helper class used internally by FeatureModel class.
+  # Purpose: to try to create a valid dependency graph and perform a
+  # topological sort of the nodes.
+  class DepGraph
+    include TSort # Mix-in module for topological sorting
+    
+    attr_reader(:dependencies)
+    
+    # Inverse lookup: from the feature file => FeatureDependencies
+    attr_reader(:lookup)
+    
+    def initialize(theDependencies)
+      @dependencies = theDependencies
+      @lookup = dependencies.each_with_object({}) do |f_deps, subresult|
+        subresult[f_deps.dependee] = f_deps
+      end
     end
-  end
-  
-  # Method required by TSort module.
-  # It is used to iterate over all the nodes of the dependency graph
-  def tsort_each_node(&aBlock)
-    return dependencies.each(&aBlock)
-  end
+    
+    # Method required by TSort module.
+    # It is used to iterate over all the nodes of the dependency graph
+    def tsort_each_node(&aBlock)
+      return dependencies.each(&aBlock)
+    end
 
-  # Method required by TSort module.
-  # It is used to iterate over all the children nodes of the given node.
-  def tsort_each_child(aDependency, &aBlock)
-    dependents = aDependency.dependents
-    children = dependents.map { |feature| lookup[feature] }
-    children.each(&aBlock)
-  end
+    # Method required by TSort module.
+    # It is used to iterate over all the children nodes of the given node.
+    def tsort_each_child(aDependency, &aBlock)
+      dependents = aDependency.dependents
+      children = dependents.map { |feature| lookup[feature] }
+      children.each(&aBlock)
+    end
 
-end # class
+  end # class
 
 
   attr_reader(:feature_files)
@@ -164,7 +164,7 @@ EOS
   
   # Output the nodes as graph vertices + their edges with parent node
   def emit_body(anIO)
-    anIO.puts  <<-EOS
+    anIO.puts <<-EOS
   subgraph island {
     node [shape = box, style=filled, color=lightgray];
 EOS
@@ -205,7 +205,7 @@ EOS
     else
       id_suffix = " -- #{its_feature.identifier}"
     end
-    anIO.puts %Q|    node_#{anIndex} [label = "#{basename}#{id_suffix}"];|
+    anIO.puts %Q(    node_#{anIndex} [label = "#{basename}#{id_suffix}"];)
   end
   
   # Draw an edge between feature files having dependencies.
@@ -271,7 +271,7 @@ EOS
       dep_tags = feature.dependency_tags
       # Complain when self dependency detected
       if dep_tags.include?(its_id)
-        msg = "Feature #{} with identifier #{its_id} depends on itself!"
+        msg = "Feature with identifier #{its_id} depends on itself!"
         fail(StandardError, msg)
       end
       

@@ -39,10 +39,10 @@ class FileAction
 
   def validate_file_patterns(filePatterns)
     err_msg = 'Expecting a list of file patterns'
-    fail StandardError, err_msg unless filePatterns.kind_of?(Array)
+    fail StandardError, err_msg unless filePatterns.is_a?(Array)
     filePatterns.each do |filePatt|
       err_msg = "Invalid value in list of file patterns: #{filePatt}"
-      fail StandardError, err_msg unless filePatt.kind_of?(String)
+      fail StandardError, err_msg unless filePatt.is_a?(String)
     end
 
     return filePatterns
@@ -162,11 +162,11 @@ class ActionTriplet
   # :copy_patterns, :copy_subdir
   def initialize(theActionSettings)
     @save_action = CopyAction.new(theActionSettings[:save_patterns], 
-      theActionSettings[:save_subdir])
+                                  theActionSettings[:save_subdir])
     @delete_action = DeleteAction.new(theActionSettings[:delete_patterns],
-      theActionSettings[:delete_subdir])
+                                      theActionSettings[:delete_subdir])
     @copy_action = CopyAction.new(theActionSettings[:copy_patterns],
-      theActionSettings[:copy_subdir])
+                                  theActionSettings[:copy_subdir])
   end
 
 
@@ -191,22 +191,22 @@ class ActionTriplet
   # Return nil if no triplet was found for the event.
   def self.builtin(anEvent)
     @@builtin_actions ||= {
-      before_each: ActionTriplet.new({
+      before_each: ActionTriplet.new(
         save_patterns: [],
         save_subdir: '',
         delete_patterns: ['*.feature'],
         delete_subdir: './features',
         copy_patterns: [],
         copy_subdir: './features'
-      }),
-      after_each: ActionTriplet.new({
+      ),
+      after_each: ActionTriplet.new(
         save_patterns: [],
         save_subdir: '',
         delete_patterns: ['*.feature'], # Remove feature files after the run
         delete_subdir: './features',
         copy_patterns: [],
         copy_subdir: ''
-      })
+      )
     }
 
     return @@builtin_actions.fetch(anEvent, nil)

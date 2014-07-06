@@ -17,7 +17,7 @@ class FeatureFileRep
   def basename()
     File.basename(filepath)
   end
-end
+end # class
 
 # A ParserListener listens to all the formatting events
 # emitted by the Gherkin parser.
@@ -53,27 +53,27 @@ class GherkinListener
   end
 
   # aBackground is a Gherkin::Formatter::Model::Background instance
-  def background(aBackground)
+  def background(_aBackground)
     ; # Do nothing
   end
   
   # aScenario is a Gherkin::Formatter::Model::Scenario instance
-  def scenario(aScenario)
+  def scenario(_aScenario)
     ; # Do nothing
   end
   
   # aScenarioOutline is a Gherkin::Formatter::Model::ScenarioOutline instance
-  def scenario_outline(aScenarioOutline)
+  def scenario_outline(_aScenarioOutline)
     ; # Do nothing  
   end
   
   # theExamples is a Gherkin::Formatter::Model::Examples instance
-  def examples(theExamples)
+  def examples(_theExamples)
     ; # Do nothing 
   end
 
   # aStep is a Gherkin::Formatter::Model::Step instance
-  def step(aStep)
+  def step(_aStep)
     ; # Do nothing
   end
   
@@ -84,7 +84,7 @@ class GherkinListener
 
 
   # Catch all method
-  def method_missing(message, *args)
+  def method_missing(message, *_args)
     puts "Method #{message} is not implemented (yet)."
   end
 

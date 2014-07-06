@@ -39,10 +39,9 @@ class Application
     model = FeatureModel.new(feature_files)
     generate_files(model, config)
 
-    unless options[:dryrun]
-      rake_cmd = 'rake -f cukedep.rake'
-      system(rake_cmd)
-    end
+    return if options[:dryrun]
+    rake_cmd = 'rake -f cukedep.rake'
+    system(rake_cmd)
   end
 
   protected
@@ -67,16 +66,18 @@ class Application
 
     exit
   end
-=begin
-  # Read the .cukedep.yml file in the current working directory
-  def load_cfg()
-    if File.exist?(Cukedep::YMLFilename)
-      YAML.load_file(Cukedep::YMLFilename)
-    else
-      Config.default
-    end
-  end
-=end
+  
+
+  # # Read the .cukedep.yml file in the current working directory
+  # def load_cfg()
+  #   if File.exist?(Cukedep::YMLFilename)
+  #     YAML.load_file(Cukedep::YMLFilename)
+  #    else
+  #      Config.default
+  #    end
+  # end
+
+
   # Parse the feature files (with the specified external encoding)
   def parse_features(external_encoding)
     # Create a Gherkin listener

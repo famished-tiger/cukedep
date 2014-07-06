@@ -12,15 +12,21 @@ require_relative 'customization'
 # UGLY workaround for bug in Cucumber's rake task
 if Gem::VERSION[0].to_i >= 2 && Cucumber::VERSION <= '1.3.2'
   # Monkey-patch a buggy method
-  class Cucumber::Rake::Task::ForkedCucumberRunner
-    def gem_available?(gemname)
-      if Gem::VERSION[0].to_i >= 2
-        gem_available_new_rubygems?(gemname)
-      else
-        gem_available_old_rubygems?(gemname)
-      end
-    end
-  end # class
+  module Cucumber
+    module Rake
+      class Task
+        class ForkedCucumberRunner
+          def gem_available?(gemname)
+            if Gem::VERSION[0].to_i >= 2
+              gem_available_new_rubygems?(gemname)
+            else
+              gem_available_old_rubygems?(gemname)
+            end
+          end
+        end # class  
+      end # class
+    end # module
+  end # module
 end
 
 
@@ -128,18 +134,15 @@ class CukeRunner
   def validated_proj_dir(projectDir)
     path = Pathname.new(projectDir)
     path = path.expand_path if path.relative?
-    unless path.exist?
-      fail StandardError, "No such project path: '#{path}'"
-    end
+    fail StandardError, "No such project path: '#{path}'" unless path.exist?
 
     return path.to_s
   end
 
   def expected_state(aState)
-    unless state == aState
-      msg = "expected state was '#{aState}' instead of '#{state}'."
-      fail StandardError, msg
-    end
+    return if state == aState
+    msg = "expected state was '#{aState}' instead of '#{state}'."
+    fail StandardError, msg
   end
 
 
@@ -189,10 +192,9 @@ class CukeRunner
     hook_kind = (kind + '_hooks')
 
     kode = handlers[hook_kind.to_sym][scope.to_sym]
-    unless kode.nil?
-      safe_args = args.map { |one_arg| one_arg.dup.freeze }
-      kode.call(*safe_args)
-    end
+    return if kode.nil?
+    safe_args = args.map { |one_arg| one_arg.dup.freeze }
+    kode.call(*safe_args)
   end
 
 

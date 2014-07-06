@@ -1,10 +1,11 @@
 AllCops:
   Excludes:
-    - '*/lab/**'
-    - '*/examples/**'
-    - '*/features/**'
-    - '*/sample/**'
-    - '*/spec/**'
+    - 'lab/**/*'
+    - 'sample/**/*'
+    - 'spec/**/*'
+    - 'examples/**/*'
+    - 'features/**/*'
+    - 'gems/**/*'
 
 
 AccessControl:

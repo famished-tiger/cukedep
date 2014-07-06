@@ -62,8 +62,6 @@ class Config
   end
 
 
-  private
-
   # Purpose: get the list of attributes referencing
   # a file action triplet.
   def self.file_action_attrs()

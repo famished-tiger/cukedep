@@ -23,10 +23,10 @@ end
 
 # Combine RSpec tests
 desc 'Run tests, with RSpec'
-task :test => [:spec]
+task test: [:spec]
 
 
 # Default rake task
-task :default => :test
+task default: :test
 
 # End of file
