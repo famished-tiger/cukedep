@@ -7,10 +7,6 @@ AllCops:
     - 'features/**/*'
     - 'gems/**/*'
 
-
-AccessControl:
-  Enabled: false
-
 # This is disabled because some demos use UTF-8
 AsciiComments:
   Enabled: false

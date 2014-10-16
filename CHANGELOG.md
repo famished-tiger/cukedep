@@ -1,4 +1,8 @@
 ### 0.1.08 / 2014-07-06
+* [CHANGE] File `.rubocop.yml`. Removed AccessControl cop.
+* [CHANGE] File `CukeRunner#before_each`. Minor refactoring to please Rubocop 0.26.1
+
+### 0.1.08 / 2014-07-06
 * [CHANGE] Most source files comply to Rubocop 0.24.1.
 
 ### 0.1.07 / 2014-07-05

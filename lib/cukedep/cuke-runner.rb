@@ -150,13 +150,11 @@ class CukeRunner
     # Execute before each hook code
     run_code_block(fileNames)
 
-    builtin_actions = ActionTriplet.builtin(:before_each).dup
-    unless builtin_actions.nil?
-      builtin_actions.copy_action.patterns = fileNames
-    end
+    builtins = ActionTriplet.builtin(:before_each).dup
+    builtins.copy_action.patterns = fileNames unless builtins.nil?
 
     custom_actions = ActionTriplet.new(config.before_each_f_actions)
-    run_triplets([builtin_actions, custom_actions])
+    run_triplets([builtins, custom_actions])
   end
 
 
