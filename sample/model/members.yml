@@ -1,0 +1,13 @@
+---
+- !ruby/struct:Sample::Member
+  name: John Doe
+- !ruby/struct:Sample::Member
+  name: Jed Eye
+- !ruby/struct:Sample::Member
+  name: Bill Bo
+- !ruby/struct:Sample::Member
+  name: Jack Orjones
+- !ruby/struct:Sample::Member
+  name: Mary Gherkin
+- !ruby/struct:Sample::Member
+  name: Waldo Cuke

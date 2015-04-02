@@ -1,0 +1,4 @@
+---
+- !ruby/struct:Sample::Rental
+  video: The masked Cucumber
+  member: John Doe

@@ -1,3 +1,7 @@
+### 0.1.09 / 2015-04-02
+* [TEST] Regression tests with Cucumber 2.0.0: all pass, no code change required
+* [FIX] File `steps.rb` from sample/features/step_definitions. Replaced deprecated RSpec should syntax by new expect.
+
 ### 0.1.08 / 2014-07-06
 * [CHANGE] File `.rubocop.yml`. Removed AccessControl cop.
 * [CHANGE] File `CukeRunner#before_each`. Minor refactoring to please Rubocop 0.26.1

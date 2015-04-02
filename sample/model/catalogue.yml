@@ -1,0 +1,13 @@
+---
+- !ruby/struct:Sample::Video
+  title: The empire of Cucumber
+  state: :available
+- !ruby/struct:Sample::Video
+  title: The revenge of the Cucumber
+  state: :available
+- !ruby/struct:Sample::Video
+  title: The peeled Cucumber
+  state: :available
+- !ruby/struct:Sample::Video
+  title: The masked Cucumber
+  state: :available
