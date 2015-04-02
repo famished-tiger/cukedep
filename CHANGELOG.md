@@ -1,3 +1,7 @@
+### 0.1.10 / 2015-04-02
+* [FIX] File `.travis.yml`: Removed MRI Ruby 1.9.2 since it is rejected by latest Cucumber version. This caused a build failure on Travis
+* [NEW] File `.travis.yml` Added support for Ruby 2.2.0
+
 ### 0.1.09 / 2015-04-02
 * [TEST] Regression tests with Cucumber 2.0.0: all pass, no code change required
 * [FIX] File `steps.rb` from sample/features/step_definitions. Replaced deprecated RSpec should syntax by new expect.
