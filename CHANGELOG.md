@@ -1,3 +1,7 @@
+### 0.1.11 / 2015-06-18
+* [CHANGE] Code re-formatted to please Rubocop 0.32.0
+* [FIX] File `.rubocop.yml`: disable some cop settings that were too loud.
+
 ### 0.1.10 / 2015-04-02
 * [FIX] File `.travis.yml`: Removed MRI Ruby 1.9.2 since it is rejected by latest Cucumber version. This caused a build failure on Travis
 * [NEW] File `.travis.yml` Added support for Ruby 2.2.0

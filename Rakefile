@@ -2,12 +2,10 @@ require 'rubygems'
 require_relative './lib/cukedep/constants'
 
 namespace :gem do
-
-desc 'Push the gem to rubygems.org'
-task :push do
-  system("gem push cukedep-#{Cukedep::Version}.gem")
-end
-
+  desc 'Push the gem to rubygems.org'
+  task :push do
+    system("gem push cukedep-#{Cukedep::Version}.gem")
+  end
 end # namespace
 
 # Testing-specific tasks

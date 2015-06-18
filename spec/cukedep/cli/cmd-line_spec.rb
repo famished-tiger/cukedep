@@ -1,15 +1,14 @@
 # File: cmd-line_spec.rb
 
 require 'stringio'
+require 'English'
 require_relative '../../spec_helper'
 
 # Load the class under testing
 require_relative '../../../lib/cukedep/cli/cmd-line'
 
 module Cukedep # Open module to get rid of long qualified names
-
 describe CLI::CmdLine do
-
   context 'Creation & initialization:' do
     subject { CLI::CmdLine.new }
 
@@ -20,13 +19,13 @@ describe CLI::CmdLine do
   
   context 'Provided services:' do
     def capture_output()
-      @output = $>
+      @output = $DEFAULT_OUTPUT
       ostream = StringIO.new('rw')
-      $> = ostream
+      $DEFAULT_OUTPUT = ostream
     end
     
     def release_output()
-      $> = @output
+      $DEFAULT_OUTPUT = @output
     end
 
   
@@ -37,12 +36,12 @@ describe CLI::CmdLine do
 
     it 'should accept the dry-run option' do
       expect { subject.parse!(['--dry-run']) }.not_to raise_error
-      expect(subject.options).to eq({ :dryrun => true })
+      expect(subject.options).to eq(dryrun: true)
     end
 
     it 'should accept the setup option' do
       expect { subject.parse!(['--setup']) }.not_to raise_error
-      expect(subject.options).to eq({ :setup => true })
+      expect(subject.options).to eq(setup: true)
     end
     
     it 'should validate the project option argument' do
@@ -62,16 +61,16 @@ MSG_END
       expect { subject.parse!(cmd_opts) }.to raise_error(err_type, err_msg) 
 
       # Case 3: project dir exists
-      #cmd_opts = ['--project', '../../../sample']
-      #expect { subject.parse!(cmd_opts) }.not_to raise_error
-      #expect(subject.options).to eq({ :project => '../../../sample' })
+      # cmd_opts = ['--project', '../../../sample']
+      # expect { subject.parse!(cmd_opts) }.not_to raise_error
+      # expect(subject.options).to eq({ :project => '../../../sample' })
     end
 
     it 'should handle the version option' do
       capture_output
       cmd_opts = ['--version']
       expect { subject.parse!(cmd_opts) }.to raise_error(SystemExit)
-      expect($>.string).to eq(Cukedep::Version + "\n")
+      expect($DEFAULT_OUTPUT.string).to eq(Cukedep::Version + "\n")
       release_output
     end
 
@@ -79,13 +78,11 @@ MSG_END
       capture_output
       cmd_opts = ['--help']
       expect { subject.parse!(cmd_opts) }.to raise_error(SystemExit)
-      expect($>.string).to eq(subject.parser.to_s)      
+      expect($DEFAULT_OUTPUT.string).to eq(subject.parser.to_s)      
       release_output
     end
   end # context
-  
-  
-
 end # describe
-
 end # module
+
+# End of file

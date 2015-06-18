@@ -1,8 +1,6 @@
 # File: feature-rep.rb
 
 module Cukedep # This module is used as a namespace
-
-
 # A FeatureRep is the internal representation of a Gherkin feature.
 class FeatureRep
   # Constant that specifies how feature identifier tags should begin
@@ -42,9 +40,7 @@ class FeatureRep
   def anonymous?()
     return identifier.nil?
   end
-
 end # class
-
 end # module
 
 # End of file

@@ -7,11 +7,8 @@ require 'pathname'
 require_relative '../constants'
 
 module Cukedep # This module is used as a namespace
-
 # Module dedicated to the command-line interface
 module CLI
-
-
 # Manages the application command-line interface (CLI).
 # It is merely a thin wrapper around the OptionParser library.
 # Responsibilities:
@@ -64,7 +61,6 @@ EOS
         puts Cukedep::Version
         options[:version] = true
       end
-
     end
   end
 
@@ -110,11 +106,8 @@ EOS
 
     return theProjectPath
   end
-
 end # class
-
 end # module
-
 end # module
 
 # End of file

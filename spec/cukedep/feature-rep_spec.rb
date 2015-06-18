@@ -6,10 +6,9 @@ require_relative '../spec_helper'
 require_relative '../../lib/cukedep/feature-rep'
 
 module Cukedep # Open module to get rid of long qualified names
-
 describe FeatureRep do
   # Tag names as provided by Gherkin parser
-  RawTagNames = %w[@some @feature:CO801_foo @depends_on:CO201_bar @depends_on:CO001_qux]
+  RawTagNames = %w(@some @feature:CO801_foo @depends_on:CO201_bar @depends_on:CO001_qux)
 
   SampleTagNames = RawTagNames.map { |t| t[1..-1] }
 
@@ -18,7 +17,7 @@ describe FeatureRep do
 
   context 'Creation and initialization:' do
     it 'could be created with an empty list of tags' do
-      expect {FeatureRep.new([]) }.not_to raise_error
+      expect { FeatureRep.new([]) }.not_to raise_error
     end
 
     it 'could be created with a list of tag names' do
@@ -40,14 +39,12 @@ describe FeatureRep do
 
   context 'Provided services:' do
     it 'should know the feature files it depends on' do
-      expected_values = %w[CO201_bar CO001_qux]
+      expected_values = %w(CO201_bar CO001_qux)
 
       expect(subject.dependency_tags.sort).to eq(expected_values.sort)
     end
   end # context
-
 end # describe
-
 end # module
 
 # End of file

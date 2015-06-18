@@ -32,7 +32,6 @@ end
 
 
 module Cukedep # This module is used as a namespace
-
 # Purpose: to launch Cucumber in the appropriate directory
 # and pass it command-line arguments.
 # Responsibilities:
@@ -194,10 +193,6 @@ class CukeRunner
     safe_args = args.map { |one_arg| one_arg.dup.freeze }
     kode.call(*safe_args)
   end
-
-
 end # class
-
 end # module
-
 # End of file

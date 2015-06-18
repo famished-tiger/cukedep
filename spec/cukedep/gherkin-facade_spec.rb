@@ -7,7 +7,6 @@ require_relative '../../lib/cukedep/gherkin-facade'
 require_relative '../../lib/cukedep/gherkin-listener'
 
 module Cukedep # Open module to get rid of long qualified names
-
 describe GherkinFacade do
   subject { GherkinFacade.new(false, 'UTF-8') }
 
@@ -28,7 +27,6 @@ describe GherkinFacade do
     it 'should know the feature file external encoding' do
       expect(subject.external_encoding).to eq('UTF-8')
     end
-  
   end # context
 
 
@@ -38,17 +36,14 @@ describe GherkinFacade do
     it 'should parse ASCII feature files' do
       instance = GherkinFacade.new(false, 'US-ASCII')
       patterns = [ 'sample_features/a_few_tests.feature' ]
-      expect {instance.parse_features(listener, patterns)}.not_to raise_error
+      expect { instance.parse_features(listener, patterns) }.not_to raise_error
     end
     
     it 'should parse feature files with other external encoding' do
       patterns = [ 'sample_features/standalone.feature' ]
-      expect {subject.parse_features(listener, patterns)}.not_to raise_error
+      expect { subject.parse_features(listener, patterns) }.not_to raise_error
     end
   end # context
-
 end # describe
-
 end # module
-
 # End of file

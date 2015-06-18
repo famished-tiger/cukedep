@@ -11,7 +11,7 @@ end
 # The code block will be executed just before
 # a Cucumber invocation.
 # The argument is a frozen Array of feature file names
-before_cuke(:each) do |filenames|
+before_cuke(:each) do |_filenames|
   puts 'before each'
 end
 

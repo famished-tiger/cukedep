@@ -2,7 +2,6 @@
 
 
 module Cukedep # Module used as a namespace
-
 # Mix-in module that defines the DSL (Domain-Specific Language)
 # for specifying Cukedep hooks.
 # A hook is a custom code block that is executed when 
@@ -74,9 +73,6 @@ module HookDSL
     handler = hooks.nil? ? nil : hooks.fetch(aScope)
     return handler
   end
-
 end # module
-
 end # module
-
 # End of file

@@ -5,16 +5,14 @@ require_relative '../spec_helper'
 require_relative '../../lib/cukedep/file-action'
 
 module Cukedep # Open module to get rid of long qualified names
-
 # Test the behaviour of the superclass
 describe FileAction do
-  let(:some_patterns) { %w[README.* *tests.feature] }
+  let(:some_patterns) { %w(README.* *tests.feature) }
   let(:subpath) { './some-dir' }
 
   subject { FileAction.new(some_patterns, subpath) }
 
   context 'Creation & initialization:' do
-
     it 'should be created with file patterns and a subdirectory argument' do
       # Case 1: empty instance
       expect { FileAction.new([], '') }.not_to raise_error
@@ -30,12 +28,10 @@ describe FileAction do
     it "should know the target's subdirectory" do
       expect(subject.delta).to eq(subpath)
     end
-
   end # context
 
 
   context 'Basic services:' do
-
     it 'should know whether it is equal to another instance' do
       # Case 1: comparing with itself
       expect(subject).to eq(subject)
@@ -50,7 +46,6 @@ describe FileAction do
       expect(subject).not_to eq(another)
     end
   end # context
-
 end # describe
 
 
@@ -73,11 +68,12 @@ describe CopyAction do
 
   before(:all) do
     # Clean stuffed dirs
-    target_dir = File.join(File.dirname(__FILE__), '/sample_features/saved_files')
-    unless Dir.exist?(target_dir)
-      Dir.mkdir(target_dir)
-    else
+    path_suffix = '/sample_features/saved_files'
+    target_dir = File.join(File.dirname(__FILE__), path_suffix)
+    if Dir.exist?(target_dir)
       clean_dir(target_dir)
+    else
+      Dir.mkdir(target_dir)
     end
   end
 
@@ -100,7 +96,7 @@ describe CopyAction do
 
       # Case: one file pattern
       instance1 = CopyAction.new(['*.md'], subdir)
-      expect{ instance1.run!(source_dir, my_dir) }.not_to raise_error
+      expect { instance1.run!(source_dir, my_dir) }.not_to raise_error
 
       Dir.chdir(my_dir)
       # Control the result...
@@ -109,15 +105,13 @@ describe CopyAction do
 
       # Case: two file patterns
       instance2 = CopyAction.new(['file1.txt', 'file2.txt'], subdir)
-      expect{ instance2.run!(source_dir, my_dir) }.not_to raise_error
+      expect { instance2.run!(source_dir, my_dir) }.not_to raise_error
 
       # Control the result...
       copied_files = Dir.glob(subdir + '/' + '*.*')
       expect(copied_files.size).to eq(3)
     end
-
   end # context
-
 end # describe
 
 
@@ -149,7 +143,7 @@ describe DeleteAction do
 
       # Case: one file pattern and a subdir
       instance1 = DeleteAction.new(['*.md'], subdir)
-      expect{ instance1.run!(my_dir) }.not_to raise_error
+      expect { instance1.run!(my_dir) }.not_to raise_error
       Dir.chdir(my_dir)
       
       # Control the result...
@@ -158,7 +152,7 @@ describe DeleteAction do
 
       # Case: multiple file patterns and no subdir
       instance2 = DeleteAction.new(['file1.txt', 'file3.txt'])
-      expect{ instance2.run!(target_dir) }.not_to raise_error
+      expect { instance2.run!(target_dir) }.not_to raise_error
 
       # Control the result...
       remaining_files = Dir.glob(subdir + '/' + '*.*')
@@ -166,20 +160,17 @@ describe DeleteAction do
 
       # Delete all files
       instance3 = DeleteAction.new(['*.*'])
-      expect{ instance3.run!(target_dir) }.not_to raise_error
+      expect { instance3.run!(target_dir) }.not_to raise_error
 
       # Control the result...
       remaining_files = Dir.glob(subdir + '/' + '*.*')
       expect(remaining_files.size).to eq(0)
     end
   end # context
-
-
 end # describe
 
 
 describe ActionTriplet do
-
   def saved_files_dir()
     my_dir = File.dirname(__FILE__)
     return my_dir + '/sample_features/saved_files'
@@ -218,7 +209,6 @@ describe ActionTriplet do
   end
 
   context 'Creation & initialization:' do
-
     it 'should be created with Hash-like arguments' do
       # Case 1: empty instance
       expect { ActionTriplet.new(empty_config) }.not_to raise_error
@@ -226,7 +216,6 @@ describe ActionTriplet do
       # Case 2: stuffed instance
       expect { ActionTriplet.new(sample_config) }.not_to raise_error
     end
-
   end # context
 
   context 'Basic services:' do
@@ -248,7 +237,6 @@ describe ActionTriplet do
   end # context
 
 
-
   context 'Actions on files:' do
     before(:each) do
       # Store the working dir before starting
@@ -267,15 +255,14 @@ describe ActionTriplet do
       clean_dir(proj_dir)
     end
 
-
     # Directories
     def proj_dir()
       my_dir = File.join(File.dirname(__FILE__), '/dummy_project')
       
-      unless Dir.exist?(my_dir)
-        Dir.mkdir(my_dir)
-      else
+      if Dir.exist?(my_dir)
         clean_dir(my_dir)
+      else
+        Dir.mkdir(my_dir)
       end
       
       return my_dir
@@ -285,7 +272,6 @@ describe ActionTriplet do
       child = '/sample_features/files_to_copy'
       File.join(File.dirname(__FILE__), child)
     end
-
 
     def clean_dir(aDirectory)
       # Create an instance with just delete file items
@@ -318,7 +304,7 @@ describe ActionTriplet do
       Dir.chdir(project_dir)
       actuals = Dir['*.*']
       expect(actuals.size).to eq(3)
-      expect(actuals.sort).to eq(%w[file1.txt file2.txt file3.txt])
+      expect(actuals.sort).to eq(%w(file1.txt file2.txt file3.txt))
 
       # Clean project dir
       clean_dir(project_dir)
@@ -333,9 +319,9 @@ describe ActionTriplet do
 
       actuals = Dir['*.*']
       expect(actuals.size).to eq(4)
-      (txt_files, md_files) = actuals.partition {|f| f =~ /\.txt/}
-      expect(txt_files.sort).to eq(%w[file1.txt file2.txt file3.txt])
-      expect(md_files).to eq(%w[README.md])
+      (txt_files, md_files) = actuals.partition { |f| f =~ /\.txt/ }
+      expect(txt_files.sort).to eq(%w(file1.txt file2.txt file3.txt))
+      expect(md_files).to eq(%w(README.md))
     end
 
 =begin
@@ -374,9 +360,7 @@ describe ActionTriplet do
     end
 =end
   end # context
-
 end # describe
-
 end # module
 
 # End of file

@@ -7,10 +7,8 @@ require_relative '../spec_helper'
 require_relative '../../lib/cukedep/hook-dsl'
 
 module Cukedep # Open module to get rid of long qualified names
-
 # Let's specify the behaviour of the mix-in module
 describe HookDSL do
-
   subject do
     obj = Object.new
     obj.extend(HookDSL)
@@ -19,7 +17,7 @@ describe HookDSL do
 
   context 'Hook definitions:' do
     let(:code_block) do
-      -> { ; }
+      -> { }
     end
 
     it 'should accept the before all hook' do
@@ -59,11 +57,13 @@ describe HookDSL do
       # Case 1: before invalid with block code
       msg = "Unknown scope 'invalid' for before_cuke hook."
       error = StandardError
-      expect { subject.before_cuke(:invalid, &code_block) }.to raise_error(error, msg)
+      expect { subject.before_cuke(:invalid, &code_block) }
+        .to raise_error(error, msg)
 
       # Case 2: after invalid with block code
       msg = "Unknown scope 'invalid' for after_cuke hook."
-      expect { subject.after_cuke(:invalid, &code_block) }.to raise_error(error, msg)
+      expect { subject.after_cuke(:invalid, &code_block) }
+        .to raise_error(error, msg)
     end
 
 
@@ -118,7 +118,6 @@ describe HookDSL do
       expect(subject.after_hooks.keys).to eq([:all, :each])
       expect(subject.after_hooks[:each]).to eq(code_block)
     end
-
   end # context
 =begin
   context 'Executing handler code:' do
@@ -177,9 +176,7 @@ describe HookDSL do
 
   end # context
 =end
-
 end # describe
-
 end # module
 
 # End of file

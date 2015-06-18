@@ -6,14 +6,11 @@ require 'erb'
 require 'pathname'
 
 module Cukedep # This module is used as a namespace
-
-
 # The internal representation of a set of feature files.
 # Dependencies: use topological sort
 # TSort module http://ruby-doc.org/stdlib-1.9.3/libdoc/tsort/rdoc/TSort.html
 # See also: Is this topological sort in Ruby flawed?
 class FeatureModel
-
   FeatureDependencies = Struct.new(:dependee, :dependents)
 
   # Helper class used internally by FeatureModel class.
@@ -47,7 +44,6 @@ class FeatureModel
       children = dependents.map { |feature| lookup[feature] }
       children.each(&aBlock)
     end
-
   end # class
 
 
@@ -231,7 +227,7 @@ EOS
 
     source_dir = File.absolute_path(Dir.getwd)
     proj_dir = File.absolute_path(theProjDir)
-    anonymous = anonymous_features.map { |ff| ff.basename }
+    anonymous = anonymous_features.map(&:basename)
     feature_ids = feature_files.map { |ff| ff.feature.identifier }
     feature_ids.compact!
     deps = dependencies.reject { |dep| dep.dependee.feature.anonymous? }
@@ -290,9 +286,7 @@ EOS
     
     return @dependencies
   end
-
 end # class
-
 end # module
 
 # end of file
