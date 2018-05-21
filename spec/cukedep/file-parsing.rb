@@ -7,14 +7,14 @@ module Cukedep # This module is used as a namespace
   # Purpose: to parse a sample of feature files.
   module FileParsing
     # The list of sample feature file names.
-    SampleFileNames = 
-      [ 'a_few_tests.feature', 
-        'some_tests.feature',
-        'still_other_tests.feature',
-        'yet_other_tests.feature',
-        'more_tests.feature',
-        'standalone.feature'
-      ]
+    SampleFileNames = [
+      'a_few_tests.feature',
+      'some_tests.feature',
+      'still_other_tests.feature',
+      'yet_other_tests.feature',
+      'more_tests.feature',
+      'standalone.feature'
+    ].freeze
 
     # Helper method. It parses sample feature files and
     # notifies the provided listener of its progress.
@@ -25,7 +25,7 @@ module Cukedep # This module is used as a namespace
         my_dir = File.dirname(__FILE__)
         sample_dir = File.expand_path(my_dir + '/sample_features')
         Dir.chdir(sample_dir)
-        
+
         # Parse the specified feature files in work directory
         is_verbose = false
         gherkin_facade = GherkinFacade.new(is_verbose, 'UTF-8')
@@ -33,9 +33,7 @@ module Cukedep # This module is used as a namespace
       ensure
         Dir.chdir(orig_dir)
       end
-      
     end
-  
   end # module
 end # module
 # End of file

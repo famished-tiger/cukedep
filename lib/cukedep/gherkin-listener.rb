@@ -4,15 +4,15 @@ require_relative 'feature-rep'
 
 
 module Cukedep # This module is used as a namespace
-  class FeatureFileRep 
+  class FeatureFileRep
     attr_reader(:filepath)
-    attr(:feature, true)
-    
+    attr_accessor(:feature)
+
     def initialize(aFilepath)
       @filepath = aFilepath
     end
-    
-    def basename()
+
+    def basename
       File.basename(filepath)
     end
   end # class
@@ -27,12 +27,13 @@ module Cukedep # This module is used as a namespace
     attr_reader(:feature_files)
 
     # Internal representation of the feature being parsed
-    attr(:current_feature, true)
-    
-    def initialize()
+    attr_accessor(:current_feature)
+
+    # Constructor
+    def initialize
       @feature_files = []
     end
-    
+
     ######################################
     # Event listening methods
     ######################################
@@ -45,44 +46,13 @@ module Cukedep # This module is used as a namespace
     end
 
     # aFeature is a Gherkin::Formatter::Model::Feature instance
-    def feature(aFeature)
-      tag_names = aFeature.tags.map(&:name)
+    def feature_tags(tag_names)
       @current_feature = feature_files.last.feature = FeatureRep.new(tag_names)
     end
 
-    # aBackground is a Gherkin::Formatter::Model::Background instance
-    def background(_aBackground)
-      ; # Do nothing
-    end
-    
-    # aScenario is a Gherkin::Formatter::Model::Scenario instance
-    def scenario(_aScenario)
-      ; # Do nothing
-    end
-    
-    # aScenarioOutline is a Gherkin::Formatter::Model::ScenarioOutline instance
-    def scenario_outline(_aScenarioOutline)
-      ; # Do nothing  
-    end
-    
-    # theExamples is a Gherkin::Formatter::Model::Examples instance
-    def examples(_theExamples)
-      ; # Do nothing 
-    end
-
-    # aStep is a Gherkin::Formatter::Model::Step instance
-    def step(_aStep)
-      ; # Do nothing
-    end
-    
-    # End of feature file notification.
-    def eof()
-      ; # Do nothing
-    end
-
-
     # Catch all method
     def method_missing(message, *_args)
+      puts caller(1, 5).join("\n")
       puts "Method #{message} is not implemented (yet)."
     end
   end # class

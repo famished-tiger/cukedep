@@ -24,7 +24,7 @@ end
 # The code block will be executed just after
 # the last Cucumber invocation.
 after_cuke(:all) do
-  puts 'after all'  
+  puts 'after all'
 end
 
 # End of file

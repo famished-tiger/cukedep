@@ -1,6 +1,5 @@
 # File: sandbox.rb
 
-
 module Cukedep # This module is used as a namespace
   # A context in which hook block codes are run.
   class Sandbox

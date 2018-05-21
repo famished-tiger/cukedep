@@ -1,6 +1,5 @@
 # File: application.rb
 
-
 require_relative 'cli/cmd-line'
 require_relative 'config'
 require_relative 'gherkin-listener'
@@ -11,8 +10,6 @@ module Cukedep # Module used as a namespace
   # Runner for the Cukedep application.
   class Application
     attr_reader(:proj_dir)
-    
-    public
 
     # Entry point for the application object.
     def run!(theCmdLineArgs)
@@ -27,14 +24,14 @@ module Cukedep # Module used as a namespace
         else
           msg_p1 = "No project dir specified in '#{Cukedep::YMLFilename}'"
           msg_p2 = ' nor via --project option.'
-          fail(StandardError, msg_p1 + msg_p2)
+          raise StandardError, msg_p1 + msg_p2
         end
       else
         @proj_dir = config.proj_dir
       end
 
       feature_files = parse_features(config.feature_encoding)
-      
+
       model = FeatureModel.new(feature_files)
       generate_files(model, config)
 
@@ -51,10 +48,9 @@ module Cukedep # Module used as a namespace
       cli.parse!(theCmdLineArgs.dup)
     end
 
-
     # Create a local copy of the .cukedep.yml file, then
     # stop the application.
-    def create_default_cfg()
+    def create_default_cfg
       if File.exist?(Cukedep::YMLFilename)
         puts "OK to overwrite file #{Cukedep::YMLFilename}."
         puts '(Y/N)?'
@@ -65,7 +61,6 @@ module Cukedep # Module used as a namespace
 
       exit
     end
-    
 
     # # Read the .cukedep.yml file in the current working directory
     # def load_cfg()
@@ -76,12 +71,11 @@ module Cukedep # Module used as a namespace
     #    end
     # end
 
-
     # Parse the feature files (with the specified external encoding)
     def parse_features(external_encoding)
       # Create a Gherkin listener
       listener = Cukedep::GherkinListener.new
-      
+
       # Parse the feature files in work directory
       is_verbose = true
       gherkin_facade = GherkinFacade.new(is_verbose, external_encoding)
@@ -90,13 +84,12 @@ module Cukedep # Module used as a namespace
       return listener.feature_files
     end
 
-
     def generate_files(aModel, aConfig)
       # Sort the feature files by dependency order.
       aModel.sort_features_by_dep
-      
+
       puts "\nGenerating:"
-      
+
       # Generate CSV files detailing the feature to identifier mapping
       # and vise versa
       # TODO: replace hard-coded names by value from config

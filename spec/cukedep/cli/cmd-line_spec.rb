@@ -16,19 +16,19 @@ describe CLI::CmdLine do
     expect { CLI::CmdLine.new }.not_to raise_error
     end
   end # context
-  
+
   context 'Provided services:' do
-    def capture_output()
+    def capture_output
       @output = $DEFAULT_OUTPUT
       ostream = StringIO.new('rw')
       $DEFAULT_OUTPUT = ostream
     end
-    
-    def release_output()
+
+    def release_output
       $DEFAULT_OUTPUT = @output
     end
 
-  
+
     it 'should accept an empty command-line' do
       expect { subject.parse!([]) }.not_to raise_error
       expect(subject.options).to be_empty
@@ -43,7 +43,7 @@ describe CLI::CmdLine do
       expect { subject.parse!(['--setup']) }.not_to raise_error
       expect(subject.options).to eq(setup: true)
     end
-    
+
     it 'should validate the project option argument' do
       # Case 1: missing project dir argument
       cmd_opts = ['--project']
@@ -54,11 +54,11 @@ To see the command-line syntax, do:
 cukedep --help
 MSG_END
       expect { subject.parse!(cmd_opts) }.to raise_error(err_type)
-      
+
       # Case 2: non existing project dir
       cmd_opts = ['--project', 'nowhere']
       err_msg = "Cannot find the directory 'nowhere'."
-      expect { subject.parse!(cmd_opts) }.to raise_error(err_type, err_msg) 
+      expect { subject.parse!(cmd_opts) }.to raise_error(err_type, err_msg)
 
       # Case 3: project dir exists
       # cmd_opts = ['--project', '../../../sample']
@@ -78,7 +78,7 @@ MSG_END
       capture_output
       cmd_opts = ['--help']
       expect { subject.parse!(cmd_opts) }.to raise_error(SystemExit)
-      expect($DEFAULT_OUTPUT.string).to eq(subject.parser.to_s)      
+      expect($DEFAULT_OUTPUT.string).to eq(subject.parser.to_s)
       release_output
     end
   end # context

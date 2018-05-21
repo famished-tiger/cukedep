@@ -1,3 +1,9 @@
+### 0.2.00 / 2018-05-21
+Version number bumped.
+* [CHANGE] Version numbers in dependencies
+* [CHANGE] Code re-formatted to please Rubocop 0.55.0
+* [FIX] Fixed code breaking changes caused by 'gherkin 4.+'
+
 ### 0.1.11 / 2015-06-18
 * [CHANGE] Code re-formatted to please Rubocop 0.32.0
 * [FIX] File `.rubocop.yml`: disable some cop settings that were too loud.

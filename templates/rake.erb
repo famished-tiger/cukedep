@@ -51,22 +51,21 @@ end
 #######################################
 
 # Constant holding the location of the original feature files
-SOURCE_DIR = '<%=source_dir%>'
+SOURCE_DIR = '<%=source_dir%>'.freeze
 
 # Constant holding the location of the Cucumber project
-CUKE_PROJECT = '<%=proj_dir%>'
+CUKE_PROJECT = '<%=proj_dir%>'.freeze
 
 # The list of all "legacy" feature file
 # (feature files without the @feature: tag)
 AllUnidentifiedFeatures = [<%anonymous_list = anonymous.map {|nm| "'#{nm}'"}%>
-  <%=anonymous_list.join(",\n  ")%>
-]
+  <%=anonymous_list.join("\n  ")%>
+].freeze
 
 # The list of all encountered feature ids
-AllFeatureIdentifiers = [ <%identifier_list = feature_ids.map {|fid| ":#{fid}"}%>
-  <%=identifier_list.join(",\n  ")%>
-]
-
+AllFeatureIdentifiers = %I[<%identifier_list = feature_ids.map {|fid| "#{fid}"}%>
+  <%=identifier_list.join("\n  ")%>
+].freeze
 
 def run_builtin_actions(anEvent)
   actions = Cukedep::ActionTriplet.builtin(anEvent)
@@ -95,12 +94,11 @@ def copy_to_project(filenames)
   end
 end
 
-
 # Helper method. Given the name of files in the features dir of the project,
 # copy them into the source dir.
 def copy_from_project(*filenames)
   filenames.each do |fname|
-    source_path =  project_path_of(fname)
+    source_path = project_path_of(fname)
     dest_path = source_path_of(fname)
     FileUtils.copy_file(source_path, dest_path)
   end
@@ -117,11 +115,10 @@ def clean_project_dir(fname_patterns)
       filenames = Dir.glob(patt)
       filenames.each { |fn| FileUtils.remove_file(fn) }
     end
-  ensure  # Always restore previous working dir.
+  ensure # Always restore previous working dir.
     Dir.chdir(curr_dir)
   end
 end
-
 
 # Helper method. Invoke Cucumber with the given project root dir.
 # Assumption: all features files to execute are placed
@@ -138,7 +135,6 @@ def invoke_cuke(projectDir)
   end
 end
 
-
 def process_files(filenames)
   run_builtin_actions(:before_each)
   copy_to_project(filenames)
@@ -151,16 +147,12 @@ def process_a_feature(filename)
   process_files([filename])
 end
 
-
 # Default rake task is also top-level task
 task default: :run_all_features
 
-
 desc 'Run all features'
-task run_all_features: [:before_all, :all_features, :after_all] do
-  ; # Do nothing
+task run_all_features: %I[before_all all_features after_all] do
 end
-
 
 desc 'Before all'
 task :before_all do
@@ -172,16 +164,15 @@ task :after_all do
   run_builtin_actions(:after_all)
 end
 
-
 task :unidentified do
   process_files(AllUnidentifiedFeatures)
 end
 
 # Tasks for feature files involved in dependencies
 <%deps.each do |dep|%>
-<%dep_list = dep.dependents.map { |ff| ":#{ff.feature.identifier}" } %>
+<%dep_list = dep.dependents.map { |ff| "#{ff.feature.identifier}" } %>
 desc '<%=dep.dependee.feature.identifier%>: run <%=dep.dependee.basename%>'
-task <%=dep.dependee.feature.identifier%><%= dep_list.empty? ? '' : %Q|: [#{dep_list.join(', ') }]| %> do
+task <%= dep_list.empty? ? ':' + dep.dependee.feature.identifier : dep.dependee.feature.identifier + ':'%><%= dep_list.empty? ? '' : %Q| %I[#{dep_list.join(' ')}]| %> do
   process_a_feature('<%=dep.dependee.basename%>')
 end
 <%end%>

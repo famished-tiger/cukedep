@@ -2,16 +2,16 @@ require 'pp'
 
 require_relative '../../lib/cukedep/file-action'
 
-copy_config = { 
+copy_config = {
   save_patterns: [],
   save_subdir: '',
   delete_patterns: [],
   delete_subdir: '',
   copy_patterns: ['*.txt'],
-  copy_subdir: '' 
+  copy_subdir: ''
 }
 
-pp Dir.pwd 
+pp Dir.pwd
 instance = Cukedep::ActionTriplet.new(copy_config)
 path = 'C:/Ruby193/lib/ruby/site_ruby/Cukedep/spec/cukedep/'
 files_to_copy_dir = path + 'sample_features/files_to_copy'

@@ -5,23 +5,22 @@ require 'fileutils'
 
 module Cukedep # This module is used as a namespace
   class FileAction
-    attr(:patterns, true)
+    attr_accessor(:patterns)
     attr_reader(:delta)
 
     # Constructor.
     # [thePatterns] An array of file patterns.
     def initialize(thePatterns, aDelta = nil)
       @patterns = validate_file_patterns(thePatterns)
-      @delta  = validate_delta(aDelta)
+      @delta = validate_delta(aDelta)
     end
-
 
     # Datavalue semantic: FileActions don't have identity
     def ==(other)
       return true if object_id == other.object_id
       return false if self.class != other.class
 
-      attrs = [:patterns, :delta]
+      attrs = %I[patterns delta]
       equality = true
 
       attrs.each do |accessor|
@@ -32,15 +31,14 @@ module Cukedep # This module is used as a namespace
       return equality
     end
 
-
     protected
 
     def validate_file_patterns(filePatterns)
       err_msg = 'Expecting a list of file patterns'
-      fail StandardError, err_msg unless filePatterns.is_a?(Array)
-      filePatterns.each do |filePatt|
-        err_msg = "Invalid value in list of file patterns: #{filePatt}"
-        fail StandardError, err_msg unless filePatt.is_a?(String)
+      raise StandardError, err_msg unless filePatterns.is_a?(Array)
+      filePatterns.each do |file_patt|
+        err_msg = "Invalid value in list of file patterns: #{file_patt}"
+        raise StandardError, err_msg unless file_patt.is_a?(String)
       end
 
       return filePatterns
@@ -52,7 +50,7 @@ module Cukedep # This module is used as a namespace
         when String
           validated = aDelta.empty? ? nil : aDelta
         else
-          fail StandardError, 'Invalid relative path #{aDelta}'
+          raise StandardError, "Invalid relative path #{aDelta}"
       end
 
       return validated
@@ -74,7 +72,6 @@ module Cukedep # This module is used as a namespace
   end # class
 
 
-
   # A delete action object has for purpose to
   # delete files matching one of its file patterns.
   # These file are deleted from (a subdir of) a given 'target' directory.
@@ -87,7 +84,7 @@ module Cukedep # This module is used as a namespace
 
     def run!(targetDir)
       return if patterns.empty?
-      orig_dir = Dir.getwd  # Store current work directory
+      orig_dir = Dir.getwd # Store current work directory
       # pp orig_dir
 
       begin
@@ -107,7 +104,6 @@ module Cukedep # This module is used as a namespace
       FileUtils.remove_file(aFilename)
     end
   end # class
-
 
 
   # A copy action object has for purpose to
@@ -161,15 +157,13 @@ module Cukedep # This module is used as a namespace
                                     theActionSettings[:copy_subdir])
     end
 
-
     def ==(other)
       return true if object_id == other.object_id
 
       return (save_action == other.save_action) &&
-        (delete_action == other.delete_action) &&
-        (copy_action == other.copy_action)
+             (delete_action == other.delete_action) &&
+             (copy_action == other.copy_action)
     end
-
 
     # Launch the file actions in sequence.
     def run!(currentDir, projectDir)
@@ -177,7 +171,6 @@ module Cukedep # This module is used as a namespace
       delete_action.run!(projectDir)
       copy_action.run!(currentDir, projectDir)
     end
-
 
     # Retrieve the 'built-in' action triplet associated with the given event.
     # Return nil if no triplet was found for the event.

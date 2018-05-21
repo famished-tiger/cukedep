@@ -25,7 +25,7 @@ module Cukedep # Module used as a namespace
   # Configuration object for the Cukedep application.
   class Config
     # Factory method. Build a config object with default settings.
-    def self.default()
+    def self.default
       instance = Config.new(
         'UTF-8',
         nil,
@@ -43,7 +43,6 @@ module Cukedep # Module used as a namespace
       return instance
     end
 
-
     # Read the YAML file with specified name from the current working directory.
     # If that file does not exist, then return an instance with default values.
     def self.load_cfg(filename)
@@ -53,27 +52,24 @@ module Cukedep # Module used as a namespace
       return instance
     end
 
-
     # Save the Config object to a YAML file.
     def write(filename)
       File.open(filename, 'w') { |f| YAML.dump(self, f) }
     end
 
-
     # Purpose: get the list of attributes referencing
     # a file action triplet.
-    def self.file_action_attrs()
-      return [
-        :before_all_f_actions,
-        :before_each_f_actions,
-        :after_each_f_actions,
-        :after_all_f_actions
+    def self.file_action_attrs
+      return %I[
+        before_all_f_actions
+        before_each_f_actions
+        after_each_f_actions
+        after_all_f_actions
       ]
     end
 
-
     # Return Hash config for a no-op action triplet.
-    def self.empty_action_triplet()
+    def self.empty_action_triplet
       {
         save_patterns: [],
         save_subdir: '',

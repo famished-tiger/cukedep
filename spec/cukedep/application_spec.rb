@@ -14,27 +14,27 @@ describe Application do
       expect { Application.new }.not_to raise_error
     end
   end # context
-  
+
   context 'Provided services:' do
     subject { Application.new }
-    
+
     it 'should read its command-line' do
       options = subject.send(:options_from, [])
       expect(options).to be_empty
     end
-    
+
     it 'should generate a user settings file' do
       # Start state: no config
       File.delete(Cukedep::YMLFilename) if File.exist?(Cukedep::YMLFilename)
-      
+
       # --setup option creates the config file then stops the application
       expect { subject.run!(['--setup']) }.to raise_error(SystemExit)
-      
+
       # Check that the config file was effectively created.
       expect(File.exist?(Cukedep::YMLFilename)).to be true
       created_config = Config.load_cfg(Cukedep::YMLFilename)
       expect(created_config).to eq(Config.default)
-      
+
       # Re-run again with --setup option.
       # It should ask permission for overwriting
       # Capture console IO
@@ -47,21 +47,21 @@ describe Application do
       $DEFAULT_OUTPUT = old_stdout
       $stdin = old_stdin
     end
-    
+
     it 'should complain in absence of project dir' do
       # Start state: no config
       File.delete(Cukedep::YMLFilename) if File.exist?(Cukedep::YMLFilename)
       expect(File.exist?(Cukedep::YMLFilename)).to be_falsey
-      
+
       # Create default config
       expect { subject.run!(['--setup']) }.to raise_error(SystemExit)
-        
+
       err = StandardError
       err_msg1 = "No project dir specified in '.cukedep.yml'"
       err_msg2 = ' nor via --project option.'
       expect { subject.run!([]) }.to raise_error(err, err_msg1 + err_msg2)
     end
-    
+
     it 'should parse the feature files' do
       curr_dir = Dir.getwd
       begin

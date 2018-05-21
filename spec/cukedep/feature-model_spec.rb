@@ -14,11 +14,11 @@ describe FeatureModel do
   # An array of FeatureFile objects created after parsing sample files.
   FeatureFiles = begin
     listener = GherkinListener.new
-    extend(FileParsing)  # Add behaviour from mixin module
+    extend(FileParsing) # Add behaviour from mixin module
     parse_for(listener) # Method from mixin to parse sample feature files
     listener.feature_files
   end
-  
+
   # Default instantiation rule
   subject { FeatureModel.new(FeatureFiles) }
 
@@ -31,21 +31,21 @@ describe FeatureModel do
       expect(subject.feature_files).to eq(FeatureFiles)
     end
   end # context
-  
+
   context 'Provided services:' do
     it 'should list all features without identifiers' do
       unidentified = subject.anonymous_features
       expect(unidentified.size).to eq(1)
       expect(unidentified[0].filepath).to match(/standalone\.feature$/)
     end
-   
+
     it 'should retrieve a feature file given its identifier' do
       # Case of a single id argument
       one_id = 'foo'
       found = subject.select_by_ids(one_id)
       expect(found.size).to eq(1)
       expect(found[0].feature.identifier).to eq(one_id)
-      
+
       # Case of multiple id arguments
       second_id = 'qux'
       found = subject.select_by_ids(one_id, second_id)
@@ -53,7 +53,7 @@ describe FeatureModel do
       actual_ids = found.map { |ff| ff.feature.identifier }
       expected_ids = [one_id, second_id]
       expect(actual_ids.sort).to eq(expected_ids.sort)
-      
+
       # Case of unknown id
       wrong_id = 'does_not_exist'
       err_type = StandardError
@@ -67,11 +67,11 @@ describe FeatureModel do
       mapping = subject.send(:id2features)
       deps = subject.dependency_links
       expect(deps).not_to be_empty
-      
+
       # Case of an identified feature without dependencies
-      case1 = deps.find { |a_dep| a_dep.dependee == mapping['baz'] } 
+      case1 = deps.find { |a_dep| a_dep.dependee == mapping['baz'] }
       expect(case1.dependents).to be_empty
-      
+
       # Case of a feature having dependencies
       case2 = deps.find { |a_dep| a_dep.dependee == mapping['foo'] }
       expectations = subject.select_by_ids('bar', 'qux')
@@ -84,11 +84,11 @@ describe FeatureModel do
      expected_order = %w(qux baz quux bar foo)
      expect(actual_order).to eq(expected_order)
     end
-    
+
     it 'should generate mapping reports' do
       subject.mapping_reports('feature2id.csv', 'id2feature.csv')
     end
-    
+
     it 'should generate dependency graph' do
       subject.dependency_links
       subject.draw_dependency_graph('dependencies.dot')

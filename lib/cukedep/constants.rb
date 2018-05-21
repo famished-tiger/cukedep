@@ -3,10 +3,10 @@
 
 module Cukedep # Module used as a namespace
   # The version number of the gem.
-  Version = '0.1.11'
+  Version = '0.2.00'.freeze
 
   # Brief description of the gem.
-  Description = 'Manage dependencies between Cucumber feature files'
+  Description = 'Manage dependencies between Cucumber feature files'.freeze
 
   # Constant Cukedep::RootDir contains the absolute path of Rodent's
   # root directory. Note: it also ends with a slash character.
@@ -22,11 +22,11 @@ module Cukedep # Module used as a namespace
     end
 
     # The file name for the user's settings
-    YMLFilename = '.cukedep.yml'
-    
+    YMLFilename = '.cukedep.yml'.freeze
+
     # The file name for the custom block codes associated
     # with before/after events.
-    HookFilename = 'cukedep_hooks.rb'
+    HookFilename = 'cukedep_hooks.rb'.freeze
   end
 end # module
 

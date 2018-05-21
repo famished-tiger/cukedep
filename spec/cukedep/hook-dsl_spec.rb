@@ -17,7 +17,7 @@ describe HookDSL do
 
   context 'Hook definitions:' do
     let(:code_block) do
-      -> { }
+      -> {}
     end
 
     it 'should accept the before all hook' do
@@ -91,7 +91,7 @@ describe HookDSL do
       subject.before_cuke(:each, &code_block)
 
       # Check that handler code is stored in instance variable
-      expect(subject.before_hooks.keys).to eq([:all, :each])
+      expect(subject.before_hooks.keys).to eq(%i[all each])
       expect(subject.before_hooks[:each]).to eq(code_block)
 
 
@@ -115,14 +115,14 @@ describe HookDSL do
       subject.after_cuke(:each, &code_block)
 
       # Check that handler code is stored in instance variable
-      expect(subject.after_hooks.keys).to eq([:all, :each])
+      expect(subject.after_hooks.keys).to eq(%i[all each])
       expect(subject.after_hooks[:each]).to eq(code_block)
     end
   end # context
 =begin
   context 'Executing handler code:' do
     let(:ostream) { StringIO.new('', 'w') }
-    
+
     it 'should ignore missing handler' do
       expect { subject.execute_hook(:before, :all) }.not_to raise_error
     end

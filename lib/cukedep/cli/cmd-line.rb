@@ -22,14 +22,14 @@ class CmdLine
   attr_reader(:parser)
 
   # Constructor.
-  def initialize()
+  def initialize
     @options = {}
 
     @parser = OptionParser.new do |opts|
-      opts.banner = <<-EOS
+      opts.banner = <<-HELP
 Usage: cukedep [options]
 The command-line options are:
-EOS
+HELP
 
       # No argument.  Check
       dry_txt1 = 'Check the feature file dependencies'
@@ -64,34 +64,32 @@ EOS
     end
   end
 
-  public
-
   # Perform the command-line parsing
   def parse!(theCmdLineArgs)
     begin
-      parser.parse!(theCmdLineArgs)    
+      parser.parse!(theCmdLineArgs)
     rescue OptionParser::MissingArgument => exc
       err_msg = ''
       exc.args.each do |arg|
         err_msg << "No argument provided with command line option: #{arg}\n"
       end
       err_msg << 'To see the command-line syntax, do:\ncukedep --help'
-      raise(StandardError, err_msg)
+      raise StandardError, err_msg
     end
 
     # Some options stop the application
     exit if options[:version] || options[:help]
-    
+
     return options
   end
 
   private
-  
+
   def validated_project(theProjectPath)
     unless Dir.exist?(theProjectPath)
-      fail StandardError, "Cannot find the directory '#{theProjectPath}'."
+      raise StandardError, "Cannot find the directory '#{theProjectPath}'."
     end
-    
+
     # If current dir is /features and project dir is parent of it
     # then we have an error
     current_path = Pathname.getwd
@@ -99,10 +97,10 @@ EOS
       if current_path.parent == Pathname.new(theProjectPath)
         msg_prefix = "Don't place original feature file in 'features'"
         msg_suffix = ' subdir of project dir.'
-        fail StandardError, msg_prefix + msg_suffix
+        raise StandardError, msg_prefix + msg_suffix
       end
     end
-    
+
 
     return theProjectPath
   end

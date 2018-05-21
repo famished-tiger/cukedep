@@ -1,7 +1,6 @@
 # File: gherkin-facade.rb
+require 'gherkin/parser'
 
-require 'gherkin'
-require 'gherkin/lexer/encoding'
 
 module Cukedep # This module is used as a namespace
   # Facade design pattern: A facade is an object that provides
@@ -16,7 +15,6 @@ module Cukedep # This module is used as a namespace
     # as expected by the mode argument of the IO#new method
     attr_reader(:external_encoding)
 
-
     def initialize(isVerbose, anExternalEncoding)
       @verbose = isVerbose
       @external_encoding = anExternalEncoding
@@ -27,24 +25,31 @@ module Cukedep # This module is used as a namespace
     # Parse events are sent to the passed listener object.
     def parse_features(aListener, file_patterns)
       # Create a Gherkin parser
-      parser = Gherkin::Parser::Parser.new(aListener)
+      parser = Gherkin::Parser.new
 
       puts "\nParsing:" if verbose
       # List all .feature files in work directory that match the pattern
       filenames = []
       file_patterns.each { |patt| filenames.concat(Dir.glob(patt)) }
-
       # Parse them
       filenames.each do |fname|
         puts "  #{fname}" if verbose
         # To prevent encoding issue, open the file
         # with an explicit external encoding
         File.open(fname, "r:#{external_encoding}") do |f|
-          parser.parse(f.read, fname, 0)
+          raw = parser.parse(f.read)
+          parse_raw_feature(raw[:feature], fname, aListener) if raw[:feature]
         end
       end
 
       return aListener
+    end
+
+    def parse_raw_feature(raw_feature, file_name, listener)
+      listener.uri(file_name)
+      raw_tags = raw_feature[:tags]
+      tag_names = raw_tags.map { |raw_tag| raw_tag[:name] }
+      listener.feature_tags(tag_names)
     end
   end # class
 end # module

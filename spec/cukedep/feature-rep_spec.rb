@@ -8,7 +8,8 @@ require_relative '../../lib/cukedep/feature-rep'
 module Cukedep # Open module to get rid of long qualified names
 describe FeatureRep do
   # Tag names as provided by Gherkin parser
-  RawTagNames = %w(@some @feature:CO801_foo @depends_on:CO201_bar @depends_on:CO001_qux)
+  RawTagNames = %w(@some @feature:CO801_foo @depends_on:CO201_bar
+                   @depends_on:CO001_qux).freeze
 
   SampleTagNames = RawTagNames.map { |t| t[1..-1] }
 

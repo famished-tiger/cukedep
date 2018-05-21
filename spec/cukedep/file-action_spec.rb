@@ -145,7 +145,7 @@ describe DeleteAction do
       instance1 = DeleteAction.new(['*.md'], subdir)
       expect { instance1.run!(my_dir) }.not_to raise_error
       Dir.chdir(my_dir)
-      
+
       # Control the result...
       remaining_files = Dir.glob(subdir + '/' + '*.*')
       expect(remaining_files.size).to eq(2)
@@ -171,18 +171,17 @@ end # describe
 
 
 describe ActionTriplet do
-  def saved_files_dir()
+  def saved_files_dir
     my_dir = File.dirname(__FILE__)
     return my_dir + '/sample_features/saved_files'
   end
 
   # File patterns
-  def all_files()
+  def all_files
     return ['*.*']
   end
-  
-  
-  def txt_only()
+
+  def txt_only
     return ['*.txt']
   end
 
@@ -256,19 +255,19 @@ describe ActionTriplet do
     end
 
     # Directories
-    def proj_dir()
+    def proj_dir
       my_dir = File.join(File.dirname(__FILE__), '/dummy_project')
-      
+
       if Dir.exist?(my_dir)
         clean_dir(my_dir)
       else
         Dir.mkdir(my_dir)
       end
-      
+
       return my_dir
     end
 
-    def files_to_copy_dir()
+    def files_to_copy_dir
       child = '/sample_features/files_to_copy'
       File.join(File.dirname(__FILE__), child)
     end

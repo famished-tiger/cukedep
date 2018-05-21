@@ -65,7 +65,7 @@ module Cukedep # Open module to get rid of long qualified names
 
       it 'should run the designated feature files' do
         subject.before_all
-        # expect { 
+        # expect {
         subject.run!(['a_few_tests.feature']) # }.not_to raise_error
       end
     end # context

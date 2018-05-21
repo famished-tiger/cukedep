@@ -1,7 +1,7 @@
 # File: steps.rb
 # Step definitions for a sample Cucumber application
 
-def store()
+def store
   $store
 end
 
@@ -30,7 +30,7 @@ When(/^I remove the video "(.*?)"$/) do |a_title|
 end
 
 Given(/^there is no member yet$/) do
-  store.send(:zap_members!)  # Why is this method seen as private?
+  store.send(:zap_members!) # Why is this method seen as private?
 end
 
 Then(/^I should see member "(.*?)" as unknown$/) do |member_name|

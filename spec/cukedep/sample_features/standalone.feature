@@ -1,4 +1,4 @@
-# § <- This character is UTF-8
+# µ <- This character is UTF-8
 # This feature has no identifier and no explicit dependencies
 Feature: Registering new videos
   As a video rental owner
