@@ -1,3 +1,7 @@
+### 0.2.01 / 2019-01-02
+* [CHANGE] File `.travis.yml` updated with newest Ruby versions (from 2.2.x up to 2.6.0)
+* [CHANGE] Code re-formatted to please Rubocop 0.62.0
+
 ### 0.2.00 / 2018-05-21
 Version number bumped.
 * [CHANGE] Version numbers in dependencies

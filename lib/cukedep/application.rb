@@ -36,6 +36,7 @@ module Cukedep # Module used as a namespace
       generate_files(model, config)
 
       return if options[:dryrun]
+
       rake_cmd = 'rake -f cukedep.rake'
       system(rake_cmd)
     end

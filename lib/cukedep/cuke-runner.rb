@@ -137,6 +137,7 @@ module Cukedep # This module is used as a namespace
 
     def expected_state(aState)
       return if state == aState
+
       msg = "expected state was '#{aState}' instead of '#{state}'."
       raise StandardError, msg
     end
@@ -183,6 +184,7 @@ module Cukedep # This module is used as a namespace
 
       kode = handlers[hook_kind.to_sym][scope.to_sym]
       return if kode.nil?
+
       safe_args = args.map { |one_arg| one_arg.dup.freeze }
       kode.call(*safe_args)
     end

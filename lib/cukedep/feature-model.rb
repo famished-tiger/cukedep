@@ -8,7 +8,7 @@ require 'pathname'
 module Cukedep # This module is used as a namespace
 # The internal representation of a set of feature files.
 # Dependencies: use topological sort
-# TSort module http://ruby-doc.org/stdlib-1.9.3/libdoc/tsort/rdoc/TSort.html
+# TSort module http://ruby-doc.org/stdlib-2.6/libdoc/tsort/rdoc/index.html
 # See also: Is this topological sort in Ruby flawed?
 class FeatureModel
   FeatureDependencies = Struct.new(:dependee, :dependents)
@@ -65,6 +65,7 @@ class FeatureModel
       if found_feature.nil?
         raise StandardError, "No feature file with identifier '#{an_id}'."
       end
+
       sub_result << found_feature
     end
 

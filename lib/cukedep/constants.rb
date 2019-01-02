@@ -3,7 +3,7 @@
 
 module Cukedep # Module used as a namespace
   # The version number of the gem.
-  Version = '0.2.00'.freeze
+  Version = '0.2.01'.freeze
 
   # Brief description of the gem.
   Description = 'Manage dependencies between Cucumber feature files'.freeze

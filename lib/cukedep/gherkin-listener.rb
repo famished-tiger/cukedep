@@ -51,9 +51,10 @@ module Cukedep # This module is used as a namespace
     end
 
     # Catch all method
-    def method_missing(message, *_args)
+    def method_missing(message, *args)
       puts caller(1, 5).join("\n")
       puts "Method #{message} is not implemented (yet)."
+      super(message, args)
     end
   end # class
 end # module

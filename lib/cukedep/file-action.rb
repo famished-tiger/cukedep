@@ -36,6 +36,7 @@ module Cukedep # This module is used as a namespace
     def validate_file_patterns(filePatterns)
       err_msg = 'Expecting a list of file patterns'
       raise StandardError, err_msg unless filePatterns.is_a?(Array)
+
       filePatterns.each do |file_patt|
         err_msg = "Invalid value in list of file patterns: #{file_patt}"
         raise StandardError, err_msg unless file_patt.is_a?(String)
@@ -84,6 +85,7 @@ module Cukedep # This module is used as a namespace
 
     def run!(targetDir)
       return if patterns.empty?
+
       orig_dir = Dir.getwd # Store current work directory
       # pp orig_dir
 
@@ -114,6 +116,7 @@ module Cukedep # This module is used as a namespace
   class CopyAction < FileAction
     def run!(sourceDir, targetDir)
       return if patterns.empty?
+
       orig_dir = Dir.getwd  # Store current work directory
 
       begin

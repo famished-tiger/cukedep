@@ -4,10 +4,10 @@ module Cukedep # This module is used as a namespace
 # A FeatureRep is the internal representation of a Gherkin feature.
 class FeatureRep
   # Constant that specifies how feature identifier tags should begin
-  FeatureIdPrefix = /^feature:/
+  FeatureIdPrefix = /^feature:/.freeze
 
   # Constant that specifies how dependency tags should begin
-  DependencyPrefix = /^depends_on:/
+  DependencyPrefix = /^depends_on:/.freeze
 
   # The sorted list of all tags of the feature.
   # The @ prefix is stripped from each tag text.
