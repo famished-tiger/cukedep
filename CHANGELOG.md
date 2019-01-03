@@ -1,5 +1,6 @@
-### 0.2.01 / 2019-01-02
+### 0.2.01 / 2019-01-03
 * [CHANGE] File `.travis.yml` updated with newest Ruby versions (from 2.2.x up to 2.6.0)
+* [CHANGE] File `cukedep.gemspec`: As gherkin 6 is codebreaking, the dependency rule towards `gherkin` now requires version 5.x.x
 * [CHANGE] Code re-formatted to please Rubocop 0.62.0
 
 ### 0.2.00 / 2018-05-21
