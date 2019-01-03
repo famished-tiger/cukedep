@@ -27,7 +27,7 @@ EOSTRING
     '.rspec', '.ruby-gemset', '.ruby-version', '.simplecov',
     '.travis.yml', '.yardopts', 'cucumber.yml', 'Gemfile', 'Rakefile',
     'CHANGELOG.md', 'LICENSE.txt', 'README.md', 'bin/**', 'lib/*.*',
-    'lib/**/*.rb', 'sample/**/*.*', 'spec/**/*.rb',
+    'lib/**/*.rb', 'sample/**/*.rb', 'sample/**/*.yml', 'spec/**/*.rb',
     'spec/cukedep/sample_features/**',
     'spec/cukedep/sample_features/files_to_copy/**', 'templates/*.erb'
   ]
@@ -36,7 +36,7 @@ EOSTRING
 
   pkg.extra_rdoc_files = ['README.md']
   pkg.add_runtime_dependency 'cucumber', '~> 3.1', '>= 3.1.0'
-  pkg.add_runtime_dependency 'gherkin', '~> 5.0', '>= 5.0.0'
+  pkg.add_runtime_dependency 'gherkin', '~> 5.0', '< 6.0.0' # Gherkin 6.x.x is code breaking
   pkg.add_runtime_dependency 'rake', '~> 12.0', '>= 12.0.0'
   pkg.add_development_dependency 'rspec', '~> 3.6', '>= 3.6.0'
   pkg.add_development_dependency 'rubygems', '~> 2.0', '>= 2.0.0'
